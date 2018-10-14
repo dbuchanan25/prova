@@ -37,6 +37,7 @@ else
 </script>
 
 <?php
+//comment
     require_once ($_SESSION['loginstring']);
     echo '<link rel="stylesheet" href="styles/stylew3.css" type="text/css">';
 
