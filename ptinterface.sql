@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Oct 15, 2018 at 03:43 AM
+-- Generation Time: Oct 15, 2018 at 08:37 PM
 -- Server version: 10.1.21-MariaDB
 -- PHP Version: 5.6.30
 
@@ -242,16 +242,20 @@ CREATE TABLE `patients` (
   `acetaminophen2` tinyint(1) NOT NULL,
   `narcotics2` tinyint(1) NOT NULL,
   `drainage2` tinyint(1) NOT NULL,
-  `comments2` varchar(300) NOT NULL
+  `comments2` varchar(300) NOT NULL,
+  `hournumberdone` int(11) NOT NULL,
+  `daynumberdone` int(11) NOT NULL,
+  `monthnumberdone` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `patients`
 --
 
-INSERT INTO `patients` (`id`, `fname`, `lname`, `phone`, `email`, `orlocID`, `anesthesiologistID`, `surgeonID`, `cptID`, `block1ID`, `drug1ID`, `vol1`, `addi1`, `block2ID`, `drug2ID`, `vol2`, `addi2`, `hournumber`, `daynumber`, `monthnumber`, `yearnumber`, `active`, `painscore1`, `motorblock1`, `sensoryblock1`, `nsaids1`, `acetaminophen1`, `narcotics1`, `drainage1`, `comments1`, `painscore2`, `sensoryblock2`, `motorblock2`, `nsaids2`, `acetaminophen2`, `narcotics2`, `drainage2`, `comments2`) VALUES
-(1, 'Dale', 'Buchanan', '(704) 905-2866', 'db@paapa.us', 10, 103, 495, 1, 6, 12, 20, 'epi200 ', 10, 1, 10, 'clonidine ', 13, 21, 9, 2018, 1, -1, 0, 1, 1, 1, 0, 0, 'Test', -1, 1, 0, 0, 0, 0, 0, 'Test2'),
-(2, 'Alex', 'Buchanan', '(704) 905-2490', 'db@paapa.us', 8, 37, 1607, 15, 1, 1, 30, 'epi200 clonidine ', 0, 0, 0, NULL, 7, 24, 9, 2018, 1, 3, 1, 1, 1, 1, 1, 1, 'Yes', -1, 0, 0, 0, 0, 0, 0, '');
+INSERT INTO `patients` (`id`, `fname`, `lname`, `phone`, `email`, `orlocID`, `anesthesiologistID`, `surgeonID`, `cptID`, `block1ID`, `drug1ID`, `vol1`, `addi1`, `block2ID`, `drug2ID`, `vol2`, `addi2`, `hournumber`, `daynumber`, `monthnumber`, `yearnumber`, `active`, `painscore1`, `motorblock1`, `sensoryblock1`, `nsaids1`, `acetaminophen1`, `narcotics1`, `drainage1`, `comments1`, `painscore2`, `sensoryblock2`, `motorblock2`, `nsaids2`, `acetaminophen2`, `narcotics2`, `drainage2`, `comments2`, `hournumberdone`, `daynumberdone`, `monthnumberdone`) VALUES
+(1, 'Dale', 'Buchanan', '(704) 905-2866', 'db@paapa.us', 10, 103, 495, 1, 6, 12, 20, 'epi200 ', 10, 1, 10, 'clonidine ', 13, 21, 9, 2018, 1, 4, 1, 1, 1, 1, 1, 0, 'Test', 2, 0, 0, 0, 0, 0, 0, 'Test2', 7, 15, 10),
+(2, 'Alex', 'Buchanan', '(704) 905-2490', 'db@paapa.us', 8, 37, 1607, 15, 1, 1, 30, 'epi200 clonidine ', 0, 0, 0, NULL, 7, 24, 9, 2018, 1, 3, 1, 1, 1, 1, 1, 1, 'Yes', -1, 0, 0, 0, 0, 0, 0, '', 0, 0, 0),
+(11, 'Catherine', 'Buchanan', '(704) 905-2490', 'dbuchanan25@gmail.com', 10, 103, 495, 1, 6, 12, 20, NULL, 0, 0, 0, NULL, 14, 15, 10, 2018, 1, -1, 0, 0, 0, 0, 0, 0, '', -1, 0, 0, 0, 0, 0, 0, '', 0, 0, 0);
 
 -- --------------------------------------------------------
 
@@ -260,18 +264,19 @@ INSERT INTO `patients` (`id`, `fname`, `lname`, `phone`, `email`, `orlocID`, `an
 --
 
 CREATE TABLE `patientusers` (
-  `indexx` int(11) NOT NULL,
   `username` varchar(100) NOT NULL,
   `pass` char(40) NOT NULL,
-  `patientsid` int(11) NOT NULL
+  `patientsid` int(11) NOT NULL,
+  `indexx` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `patientusers`
 --
 
-INSERT INTO `patientusers` (`indexx`, `username`, `pass`, `patientsid`) VALUES
-(1, 'Buchanan', '817d519ad306b952fafefa936c5f54a6891b9193', 1);
+INSERT INTO `patientusers` (`username`, `pass`, `patientsid`, `indexx`) VALUES
+('dbuchanan', '817d519ad306b952fafefa936c5f54a6891b9193', 1, 1),
+('cbuchanan', '86f31088cc0f83f5be7c513de39002498db4179c', 11, 3);
 
 -- --------------------------------------------------------
 
@@ -6191,12 +6196,12 @@ ALTER TABLE `locations`
 -- AUTO_INCREMENT for table `patients`
 --
 ALTER TABLE `patients`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 --
 -- AUTO_INCREMENT for table `patientusers`
 --
 ALTER TABLE `patientusers`
-  MODIFY `indexx` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `indexx` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 --
 -- AUTO_INCREMENT for table `rawdata`
 --
