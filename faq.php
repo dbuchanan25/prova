@@ -204,6 +204,7 @@ if ($_SESSION['ptblock1'] && !$_SESSION['ptblock2'])
   <a href="ptblock1.php">Postoperative Day #1</a>
   <a href="blockInformation.php">Block Information</a>
   <a href="faq.php">FAQs</a>
+  <a href="logout.php">Logout</a>
 </div>
     
 <?php
@@ -217,6 +218,7 @@ else if ($_SESSION['ptblock1'] && $_SESSION['ptblock2'])
   <a href="ptblock2.php">Postoperative Day #2</a>
   <a href="blockInformation.php">Block Information</a>
   <a href="faq.php">FAQs</a>
+  <a href="logout.php">Logout</a>
 </div>
 <?php
 }
@@ -227,6 +229,7 @@ else if (!($_SESSION['ptblock1'] && !$_SESSION['ptblock2']))
   <a href="eos.php">Evening of Surgery</a>
   <a href="blockInformation.php">Block Information</a>
   <a href="faq.php">FAQs</a>
+  <a href="logout.php">Logout</a>
 </div>
 <?php
 }
