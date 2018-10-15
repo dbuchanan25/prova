@@ -214,10 +214,10 @@ button.btn:hover{ background-color: #7db4dc; -webkit-transition-duration: 1.0s; 
 </div>
 
 <div class="topnav">
-  <a href="#">Evening of Surgery</a>
+  <a href="eos.php">Evening of Surgery</a>
   <a href="#">Postoperative Day #1</a>
-  <a href="#">Block Information</a>
-  <a href="#">FAQs</a>
+  <a href="blockInformation.php">Block Information</a>
+  <a href="faqs.php">FAQs</a>
 </div>
     <br><br>
     <center><h1>POSTOPERATIVE DAY #1</h1></center>
