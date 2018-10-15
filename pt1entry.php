@@ -679,54 +679,50 @@ echo'
     
     <?php
 
-    echo'
-    <br><br>
-    <h1><center>Have you been taking any opioids? (Check One)</center></h1><br>
-    <h2><center>(such as oxycodone, hydrocodone, codeine, Lortab, Lorcet, Oxycontin, Vicodin, Percocet)</center></h2>
-    <br>
-     <table style=width:100%; margin-right:auto; margin-left:auto">
-            <tr>
+    echo
+    '<br><br> '.
+    '<h1><center>Have you been taking any opioids? (Check One)</center></h1><br> '.
+    '<h2><center>(such as oxycodone, hydrocodone, codeine, Lortab, Lorcet, Oxycontin, Vicodin, Percocet)</center></h2> '.
+    '<br> '.
+    '<table style=width:100%; margin-right:auto; margin-left:auto"> '.
+        '<tr> '.
+            '<td style="border:none; width:25%"> '.
+            '</td> '.                
+            '<td style="border:none; width:25%;"> '.
 
-                <td style="border:none; width:25%">
-                </td>
-                
-                <td style="border:none; width:25%;">
+            '<table style="border-style:solid; margin-right:auto; margin-left:auto;"> '.
+                '<tr> '.
+                    '<td> '.
+                    '<label class="control control-checkbox"> '.
+                    'Yes '.
+                    '<input type="checkbox" id="narcsy" name="narcs"/> '.
+                    '<div class="control_indicator"></div> '.
+                    '</label> '.
+                    '</td> '.
+                '</tr> '.
+            '</table> '.
+               
+            '</td> '.
+            '<td style="border:none; width:25%;"> '.
 
-                <table style="border-style:solid; margin-right:auto; margin-left:auto;">
-                <tr>
-                <td>
-		<label class="control control-checkbox">
-                 Yes
-                 <input type="checkbox" id="narcsy" name="narcs"/>
-                    <div class="control_indicator"></div>
-                </label>
-                </td>
-                </tr>
-                </table>
-                
-                </td>
-                
-                <td style="border:none; width:25%;">
-                
-                <table style="border-style:solid; margin-right:auto; margin-left:auto;">
-                <tr>
-                <td>
-		<label class="control control-checkbox">
-                 No
-                 <input type="checkbox" id="narcsn" name="narcs"/>
-                    <div class="control_indicator"></div>
-                </label>
-                </td>
-                </tr>
-                </table>
+            '<table style="border-style:solid; margin-right:auto; margin-left:auto;"> '.
+                '<tr> '.
+                    '<td> '.
+                    '<label class="control control-checkbox"> '.
+                    'No '.
+                    '<input type="checkbox" id="narcsn" name="narcs"/> '.
+                    '<div class="control_indicator"></div> '.
+                    '</label> '.
+                    '</td> '.
+                '</tr> '.
+            '</table> '.
 
-                </td>
-                
-                <td style="border:none; width:25%">
-                </td>
-                
-            </tr>
-    </table><br>';
+            '</td> '.
+            '<td style="border:none; width:25%"> '.
+            '</td> '.     
+        '</tr> '.
+    '</table> '.
+    '<br>';
 ?>
    
    <script type="text/javascript">
@@ -748,25 +744,22 @@ echo'
     
 
 <?php
-echo'
-
-    <svg height="10" width="'.$_SESSION['w'].'">
-    <line x1="'.$_SESSION['w']*.15.'" y1="0" x2="'.$_SESSION['w']*.85.'" y2="0" style="stroke:#7db4dc;stroke-width:10" />
-    </svg>
-    <br><br>
-      <h1><center>If the Block Has Worn Off:  Enter Date and Hour Block Wore Off.</center></h1>
-      <br>
-            <table style="width:35%; border-style:solid; margin-left:auto; margin-right:auto;">
-                <tr>
-                    <td style="width:33%; border:none; text-align:center"><b>Month</b></td><td style="width:33%; border:none; text-align:center">
-                    <b>Day</b></td><td style="width:33%; border:none; text-align:center"><b>Hour</b></td>
-                </tr>
+echo
+    '<svg height="10" width="'.$_SESSION['w'].'"> '.
+    '<line x1="'.$_SESSION['w']*.15.'" y1="0" x2="'.$_SESSION['w']*.85.'" y2="0" style="stroke:#7db4dc;stroke-width:10" /> '.
+    '</svg> '.
+    '<br><br> '.
+      '<h1><center>If the Block Has Worn Off:  Enter Date and Hour Block Wore Off.</center></h1> '.
+      '<br> '.
+            '<table style="width:35%; border-style:solid; margin-left:auto; margin-right:auto;"> '.
+                '<tr> '.
+                    '<td style="width:33%; border:none; text-align:center"><b>Month</b></td><td style="width:33%; border:none; text-align:center"> '.
+                    '<b>Day</b></td><td style="width:33%; border:none; text-align:center"><b>Hour</b></td> '.
+                '</tr> '.
                 
-
-                <tr>
-                    <td style="width:33%; border:none; text-align:center">
-                    
-                    <select name="month" id="month"  style="font-size:20;" onchange="click2()">';
+                '<tr> '.
+                    '<td style="width:33%; border:none; text-align:center"> '.                   
+                    '<select name="month" id="month"  style="font-size:20;" onchange="click2()">';
                     if ($datetime->format('n')=="1")
                     {
                         echo '<option selected value="1">January</option>';
@@ -940,8 +933,8 @@ echo'
                 echo
                 '</select> '.
                     '</td> '.
-                    '<td style="width:33%; border:none; text-align:center">
-                    <select name="hour" style="font-size:20;">';
+                    '<td style="width:33%; border:none; text-align:center"> '.
+                    '<select name="hour" style="font-size:20;">';
 
                 
                 for ($x=0; $x<=23; $x++)
@@ -957,13 +950,13 @@ echo'
                         echo'<option value='.$x.'>'.date_format($datetime2,"g A").'</option>';
                     }
                 }
-                echo'
-                    </select>
-                    </td>
-                </tr>
-            </table>
-      <br><br>                                               
-     </select>';
+                echo
+                    '</select> '.
+                    '</td> '.
+                '</tr> '.
+            '</table> '.
+     '<br><br> '.                                               
+     '</select>';
                     
 
 echo
