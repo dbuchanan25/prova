@@ -39,11 +39,12 @@ function check_login($dbc, $username='', $pass='')
         $ph = filterphone($p);
         if ($ph != 0) 
         {
+            $f = strtolower($e);
             $q = "SELECT a.username, a.pass ".
                  "FROM patientusers AS a ".
                  "INNER JOIN patients AS b ".
                  "ON a.patientsid = b.id ".
-                 "WHERE a.pass=SHA1('$p') AND b.active=1";
+                 "WHERE a.username='$f' AND a.pass=SHA1('$p') AND b.active=1";
             $r = @mysqli_query ($dbc, $q);
             if (mysqli_num_rows($r) == 1)
             {
