@@ -247,8 +247,7 @@ button.btn:hover{ background-color: #7db4dc; -webkit-transition-duration: 1.0s; 
     </table>
 
                 
-<?php
-echo'
+
     <form action="action_page_pt_day1entry.php" method="post">
     <table style="border-style:solid; width:70%; margin-right:auto; margin-left:auto;">
             <tr>
@@ -272,7 +271,7 @@ echo'
                 <td style="border:none; width:10%;">
                 <label class="control control-checkbox">
                  3
-                <input type="radio" id="3" name="pscore" value="3" onchange="click2(3)"/>
+                <input type="radio" id="3" name="pscore" value="3"/>
                 <div class="control_indicator"></div>
                 </label>
                 </td>
@@ -280,7 +279,7 @@ echo'
                 <td style="border:none; width:10%;">
                 <label class="control control-checkbox">
                  4
-                <input type="radio" id="4" name="pscore" value="4" onchange="click2(4)"/>
+                <input type="radio" id="4" name="pscore" value="4"/>
                 <div class="control_indicator"></div>
                 </label>
                 </td>
@@ -288,7 +287,7 @@ echo'
                 <td style="border:none; width:10%;">
                 <label class="control control-checkbox">
                  5
-                <input type="radio" id="5" name="pscore" value="5" onchange="click2(5)"/>
+                <input type="radio" id="5" name="pscore" value="5"/>
                 <div class="control_indicator"></div>
                 </label>
                 </td>
@@ -296,7 +295,7 @@ echo'
                 <td style="border:none; width:10%;">
                 <label class="control control-checkbox">
                  6
-                <input type="radio" id="6" name="pscore" value="6" onchange="click2(6)"/>
+                <input type="radio" id="6" name="pscore" value="6"/>
                 <div class="control_indicator"></div>
                 </label>            
                 </td>
@@ -304,7 +303,7 @@ echo'
                 <td style="border:none; width:10%;">
                 <label class="control control-checkbox">
                  7
-                <input type="radio" id="7" name="pscore" value="7" onchange="click2(7)"/>
+                <input type="radio" id="7" name="pscore" value="7"/>
                 <div class="control_indicator"></div>
                 </label>                
                 </td>
@@ -312,7 +311,7 @@ echo'
                 <td style="border:none; width:10%;">
                 <label class="control control-checkbox">
                  8
-                <input type="radio" id="8" name="pscore" value="8" onchange="click2(8)"/>
+                <input type="radio" id="8" name="pscore" value="8"/>
                 <div class="control_indicator"></div>
                 </label>             
                 </td>
@@ -320,7 +319,7 @@ echo'
                 <td style="border:none; width:10%;">
                 <label class="control control-checkbox">
                  9
-                <input type="radio" id="9" name="pscore" value="9" onchange="click2(9)"/>
+                <input type="radio" id="9" name="pscore" value="9"/>
                 <div class="control_indicator"></div>
                 </label>             
                 </td>
@@ -328,12 +327,10 @@ echo'
                 <td style="border:none; width:10%;">
                 <label class="control control-checkbox">
                  10
-                <input type="radio" id="10" name="pscore" value="10" onchange="click2(10)"/>
+                <input type="radio" id="10" name="pscore" value="10"/>
                 <div class="control_indicator"></div>
                 </label>             
-                </td>';
-                
-echo'
+                </td>                
             </tr>
             <tr>
                 <td>
@@ -368,11 +365,10 @@ echo'
                 </td>
             </tr>           
     </table>
-    <br><br>';
+    <br><br>
 
 
 
-    echo'
     <svg height="10" width="'.$_SESSION['w'].'">
     <line x1="'.$_SESSION['w']*.15.'" y1="0" x2="'.$_SESSION['w']*.85.'" y2="0" style="stroke:#7db4dc;stroke-width:10" />
     </svg>
@@ -422,11 +418,8 @@ echo'
                 
             </tr>
     </table>
-
-    <br><br>';
-?>
+    <br><br>
     
-
     <script type="text/javascript">
     function clickYes() {
         if (document.getElementById("motorn").checked) {
@@ -970,19 +963,18 @@ echo'
                 </tr>
             </table>
       <br><br>                                               
-     </select>'.
-   '</form>';
+     </select>';
                     
 
-echo'
-    <table align="center" width="100%" style="text-align:left; padding-left:50px; padding-top:15px; padding-bottom:15px; border:none">
-            <tr>
-                <td width="50%" align="center" style="border: none">
-                     <input type="submit" name="BReg" value="SUBMIT" class="btn">
-                </td>
-            </tr>
-      </table>
-
-      <br><br>
-      </body>';
+echo
+    '<table align="center" width="100%" style="text-align:left; padding-left:50px; padding-top:15px; padding-bottom:15px; border:none">'.
+            '<tr>'.
+                '<td width="50%" align="center" style="border: none">'.
+                     '<input type="submit" name="BReg" value="SUBMIT" class="btn">'.
+                '</td>'.
+            '</tr>'.
+    '</table>'.
+    '</form>'.
+    '<br><br>'.
+    '</body>';
 }
