@@ -496,7 +496,6 @@ button.btn:hover{ background-color: #7db4dc; -webkit-transition-duration: 1.0s; 
                 
             </tr>
     </table>
-    </form>
     <br>';
     ?>
     
