@@ -222,7 +222,7 @@ button.btn:hover{ background-color: #7db4dc; -webkit-transition-duration: 1.0s; 
     <br><br>
     <center><h1>POSTOPERATIVE DAY #1</h1></center>
     <br><br>
-    <center><h1>What is your current pain level? (Check One)</h1></center>
+    <center><h1>What is your current pain level?</h1></center>
     <br>
     <table style="border-style:solid; width:70%; margin-right:auto; margin-left:auto; font-size:20;">
             <tr>
@@ -373,7 +373,7 @@ button.btn:hover{ background-color: #7db4dc; -webkit-transition-duration: 1.0s; 
     <line x1="'.$_SESSION['w']*.15.'" y1="0" x2="'.$_SESSION['w']*.85.'" y2="0" style="stroke:#7db4dc;stroke-width:10" />
     </svg>
     <br><br>
-    <h1><center>Do you have weakness in the area of the nerve block? (Check One)</center></h1>
+    <h1><center>Do you have weakness in the area of the nerve block?</center></h1>
     <br>
     <table style=width:100%; margin-right:auto; margin-left:auto">
             <tr>
@@ -451,7 +451,7 @@ button.btn:hover{ background-color: #7db4dc; -webkit-transition-duration: 1.0s; 
     <line x1="'.$_SESSION['w']*.15.'" y1="0" x2="'.$_SESSION['w']*.85.'" y2="0" style="stroke:#7db4dc;stroke-width:10" />
     </svg>
     <br><br>
-    <h1><center>Do you have numbness in the area of the nerve block? (Check One)</center></h1>
+    <h1><center>Do you have numbness in the area of the nerve block?</center></h1>
     <br>
      <table style=width:100%; margin-right:auto; margin-left:auto">
             <tr>
@@ -535,7 +535,7 @@ echo'
       </svg>
       
     <br><br>
-    <h1><center>Have you been taking Tylenol (acetaminophen)? (Check One)</center></h1>
+    <h1><center>Have you been taking Tylenol (acetaminophen)?</center></h1>
     <br>
      <table style=width:100%; margin-right:auto; margin-left:auto">
             <tr>
@@ -607,7 +607,7 @@ echo'
 
     echo'
     <br><br>
-    <h1><center>Have you been taking Non-steroidal Anti-inflammatory Drugs (NSAIDS)? (Check One)</center></h1><br>
+    <h1><center>Have you been taking Non-steroidal Anti-inflammatory Drugs (NSAIDS)?</center></h1><br>
     <h2><center>(such as Motrin, Advil, ibuprofen, diclofenac, naproxen, Naprosyn, etodolac, ketorolac, Toradol)</center></h2>
     <br>
      <table style=width:100%; margin-right:auto; margin-left:auto">
@@ -680,7 +680,7 @@ echo'
 
     echo
     '<br><br> '.
-    '<h1><center>Have you been taking any opioids? (Check One)</center></h1><br> '.
+    '<h1><center>Have you been taking any opioids?</center></h1><br> '.
     '<h2><center>(such as oxycodone, hydrocodone, codeine, Lortab, Lorcet, Oxycontin, Vicodin, Percocet)</center></h2> '.
     '<br> '.
     '<table style=width:100%; margin-right:auto; margin-left:auto"> '.
@@ -748,7 +748,7 @@ echo
     '<line x1="'.$_SESSION['w']*.15.'" y1="0" x2="'.$_SESSION['w']*.85.'" y2="0" style="stroke:#7db4dc;stroke-width:10" /> '.
     '</svg> '.
     '<br><br> '.
-      '<h1><center>If the Block Has Worn Off:  Enter Date and Hour Block Wore Off.</center></h1> '.
+      '<h1><center>If the Block Has Worn Off (if the area is not numb anymore):<br>Enter Date and Hour Block Wore Off.</center></h1> '.
       '<br> '.
             '<table style="width:35%; border-style:solid; margin-left:auto; margin-right:auto;"> '.
                 '<tr> '.
