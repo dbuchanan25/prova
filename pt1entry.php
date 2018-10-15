@@ -7,6 +7,7 @@ $datetime2 = new DateTime("now", new DateTimeZone('US/Eastern'));
 if (!isset($_SESSION['username']))
 {
     require_once ('includes/login_functions.inc.php');
+    $_SESSION['pt1entry'] = true;
     $url = absolute_url();
     header("Location: $url");
     exit();
@@ -20,7 +21,7 @@ else
     $ph = $_SESSION['ptphone'];
     $phcomplete = "(".substr($ph,0,3).") ".substr($ph,3,3)."-".substr($ph,6);
     
-    $q = "SELECT painscore1 ".
+    $q = "SELECT painscore1, id ".
          "FROM patients ".
          "WHERE phone LIKE '".$phcomplete."' ".
          "AND active = 1";
@@ -28,6 +29,7 @@ else
     if ($r !== false)
     {
         $s = mysqli_fetch_array($r);
+        $_SESSION['id'] = $s[1];
         if ($s[0] == -1)
         {
             $goahead = true;
@@ -132,11 +134,11 @@ body {
     cursor: pointer;
     font-size: 20px;
 }
-    .control input {
-        position: absolute;
-        z-index: -1;
-        opacity: 0;
-    }
+.control input {
+    position: absolute;
+    z-index: -1;
+    opacity: 0;
+}
 .control_indicator {
     position: absolute;
     top: 1px;
@@ -147,7 +149,7 @@ body {
     border: 2px solid #000000;
 }
 .control-radio .control_indicator {
-    border-radius: undefined%;
+    border-radius: undefined;
 }
 
 .control:hover input ~ .control_indicator,
@@ -218,6 +220,7 @@ button.btn:hover{ background-color: #7db4dc; -webkit-transition-duration: 1.0s; 
   <a href="#">Postoperative Day #1</a>
   <a href="blockInformation.php">Block Information</a>
   <a href="faqs.php">FAQs</a>
+  <a href="logout.php">Logout</a>
 </div>
     <br><br>
     <center><h1>POSTOPERATIVE DAY #1</h1></center>
@@ -373,9 +376,9 @@ button.btn:hover{ background-color: #7db4dc; -webkit-transition-duration: 1.0s; 
     <line x1="'.$_SESSION['w']*.15.'" y1="0" x2="'.$_SESSION['w']*.85.'" y2="0" style="stroke:#7db4dc;stroke-width:10" />
     </svg>
     <br><br>
-    <h1><center>Do you have weakness in the area of the nerve block?</center></h1>
+    <center><h1>Do you have weakness in the area of the nerve block?</h1></center>
     <br>
-    <table style=width:100%; margin-right:auto; margin-left:auto">
+    <table style="width:100%; margin-right:auto; margin-left:auto">
             <tr>
 
                 <td style="border:none; width:25%">
@@ -387,9 +390,9 @@ button.btn:hover{ background-color: #7db4dc; -webkit-transition-duration: 1.0s; 
                 <tr>
                 <td>
 		<label class="control control-checkbox">
-                 Yes
-                 <input type="checkbox" id="motory" name="motor" value="1"/>
-                    <div class="control_indicator"></div>
+                Yes
+                <input type="checkbox" id="motory" name="motor" value="1"/>
+                <div class="control_indicator"></div>
                 </label>
                 </td>
                 </tr>
@@ -403,9 +406,9 @@ button.btn:hover{ background-color: #7db4dc; -webkit-transition-duration: 1.0s; 
                 <tr>
                 <td>
 		<label class="control control-checkbox">
-                 No
-                 <input type="checkbox" id="motorn" name="motor" value="0"/>
-                    <div class="control_indicator"></div>
+                No
+                <input type="checkbox" id="motorn" name="motor" value="0"/>
+                <div class="control_indicator"></div>
                 </label>
                 </td>
                 </tr>
@@ -528,64 +531,60 @@ button.btn:hover{ background-color: #7db4dc; -webkit-transition-duration: 1.0s; 
    
                 
 <?php
-
 echo'
-      <svg height="10" width="'.$_SESSION['w'].'">
-      <line x1="'.$_SESSION['w']*.15.'" y1="0" x2="'.$_SESSION['w']*.85.'" y2="0" style="stroke:#7db4dc;stroke-width:10" />
-      </svg>
-      
-    <br><br>
-    <h1><center>Have you been taking Tylenol (acetaminophen)?</center></h1>
-    <br>
-     <table style=width:100%; margin-right:auto; margin-left:auto">
-            <tr>
-
-                <td style="border:none; width:25%">
-                </td>
-                
-                <td style="border:none; width:25%;">
-
-                <table style="border-style:solid; margin-right:auto; margin-left:auto;">
-                <tr>
-                <td>
-		<label class="control control-checkbox">
-                 Yes
-                 <input type="checkbox" id="tylenoly" name="tylenol" value="1"/>
-                    <div class="control_indicator"></div>
-                </label>
-                </td>
-                </tr>
-                </table>
-                
-                </td>
-                
-                <td style="border:none; width:25%;">
-                
-                <table style="border-style:solid; margin-right:auto; margin-left:auto;">
-                <tr>
-                <td>
-		<label class="control control-checkbox">
-                 No
-                 <input type="checkbox" id="tylenoln" name="tylenol" value="0"/>
-                    <div class="control_indicator"></div>
-                </label>
-                </td>
-                </tr>
-                </table>
-
-                </td>
-                
-                <td style="border:none; width:25%">
-                </td>
-                
-            </tr>
-    </table><br>
     <svg height="10" width="'.$_SESSION['w'].'">
     <line x1="'.$_SESSION['w']*.15.'" y1="0" x2="'.$_SESSION['w']*.85.'" y2="0" style="stroke:#7db4dc;stroke-width:10" />
-    </svg>';
-?>
+    </svg>
+      
+    <br><br>
+    <center><h1>Have you been taking Tylenol (acetaminophen)?</h1></center>
+    <br>
+    <table style=width:100%; margin-right:auto; margin-left:auto">
+        <tr>
+            <td style="border:none; width:25%">
+            </td>
+
+            <td style="border:none; width:25%;">
+
+            <table style="border-style:solid; margin-right:auto; margin-left:auto;">
+            <tr>
+            <td>
+            <label class="control control-checkbox">
+            Yes
+            <input type="checkbox" id="tylenoly" name="tylenol" value="1"/>
+            <div class="control_indicator"></div>
+            </label>
+            </td>
+            </tr>
+            </table>
+
+            </td>
+
+            <td style="border:none; width:25%;">
+
+            <table style="border-style:solid; margin-right:auto; margin-left:auto;">
+            <tr>
+            <td>
+            <label class="control control-checkbox">
+            No
+            <input type="checkbox" id="tylenoln" name="tylenol" value="0"/>
+            <div class="control_indicator"></div>
+            </label>
+            </td>
+            </tr>
+            </table>
+
+            </td>
+            <td style="border:none; width:25%">
+            </td>
+        </tr>
+    </table>
+    <br>
+    <svg height="10" width="'.$_SESSION['w'].'">
+    <line x1="'.$_SESSION['w']*.15.'" y1="0" x2="'.$_SESSION['w']*.85.'" y2="0" style="stroke:#7db4dc;stroke-width:10" />
+    </svg>
    
-   <script type="text/javascript">
+    <script type="text/javascript">
     function clickYesT() {
         if (document.getElementById("tylenoln").checked) {
                         document.getElementById("tylenoln").checked = false;
@@ -603,62 +602,60 @@ echo'
     </script>
     
     
-<?php
-
-    echo'
     <br><br>
-    <h1><center>Have you been taking Non-steroidal Anti-inflammatory Drugs (NSAIDS)?</center></h1><br>
-    <h2><center>(such as Motrin, Advil, ibuprofen, diclofenac, naproxen, Naprosyn, etodolac, ketorolac, Toradol)</center></h2>
+    <center><h1>Have you been taking Non-steroidal Anti-inflammatory Drugs (NSAIDS)?</h1></center><br>
+    <center><h2>(such as Motrin, Advil, ibuprofen, diclofenac, naproxen, Naprosyn, etodolac, ketorolac, Toradol)</h2></center>
     <br>
-     <table style=width:100%; margin-right:auto; margin-left:auto">
+    <table style=width:100%; margin-right:auto; margin-left:auto">
             <tr>
 
                 <td style="border:none; width:25%">
                 </td>
-                
+
                 <td style="border:none; width:25%;">
 
                 <table style="border-style:solid; margin-right:auto; margin-left:auto;">
                 <tr>
                 <td>
-		<label class="control control-checkbox">
-                 Yes
-                 <input type="checkbox" id="nsaidsy" name="nsaids" value="1"/>
-                    <div class="control_indicator"></div>
-                </label>
-                </td>
-                </tr>
-                </table>
-                
-                </td>
-                
-                <td style="border:none; width:25%;">
-                
-                <table style="border-style:solid; margin-right:auto; margin-left:auto;">
-                <tr>
-                <td>
-		<label class="control control-checkbox">
-                 No
-                 <input type="checkbox" id="nsaidsn" name="nsaids" value="0"/>
-                    <div class="control_indicator"></div>
+                <label class="control control-checkbox">
+                Yes
+                <input type="checkbox" id="nsaidsy" name="nsaids" value="1"/>
+                <div class="control_indicator"></div>
                 </label>
                 </td>
                 </tr>
                 </table>
 
                 </td>
-                
+
+                <td style="border:none; width:25%;">
+
+                <table style="border-style:solid; margin-right:auto; margin-left:auto;">
+                <tr>
+                <td>
+                <label class="control control-checkbox">
+                No
+                <input type="checkbox" id="nsaidsn" name="nsaids" value="0"/>
+                <div class="control_indicator"></div>
+                </label>
+                </td>
+                </tr>
+                </table>
+
+                </td>
+
                 <td style="border:none; width:25%">
                 </td>
-                
+
             </tr>
-    </table><br>
+    </table>
+    <br>
     <svg height="10" width="'.$_SESSION['w'].'">
     <line x1="'.$_SESSION['w']*.15.'" y1="0" x2="'.$_SESSION['w']*.85.'" y2="0" style="stroke:#7db4dc;stroke-width:10" />
     </svg>';
 ?>
    
-   <script type="text/javascript">
+    <script type="text/javascript">
     function clickYesN() {
         if (document.getElementById("nsaidsn").checked) {
                         document.getElementById("nsaidsn").checked = false;
@@ -673,11 +670,9 @@ echo'
 
     document.getElementById("nsaidsy").onchange = clickYesN;
     document.getElementById("nsaidsn").onchange = clickNoN;
-    </script>
-    
-    
-    <?php
+    </script>';
 
+<?php
     echo
     '<br><br> '.
     '<h1><center>Have you been taking any opioids?</center></h1><br> '.
