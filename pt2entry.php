@@ -7,19 +7,21 @@ $datetime2 = new DateTime("now", new DateTimeZone('US/Eastern'));
 if (!isset($_SESSION['username']))
 {
     require_once ('includes/login_functions.inc.php');
+    $_SESSION['pt2entry'] = true;
     $url = absolute_url();
     header("Location: $url");
     exit();
 }
 else
 {
+    $goahead = false;
     $_SESSION['loginstring']='includes/connect.php';
     require_once ($_SESSION['loginstring']);
     
     $ph = $_SESSION['ptphone'];
     $phcomplete = "(".substr($ph,0,3).") ".substr($ph,3,3)."-".substr($ph,6);
     
-    $q = "SELECT painscore2 ".
+    $q = "SELECT painscore2, id ".
          "FROM patients ".
          "WHERE phone LIKE '".$phcomplete."' ".
          "AND active = 1";
@@ -27,15 +29,20 @@ else
     if ($r !== false)
     {
         $s = mysqli_fetch_array($r);
-        if ($s[0] > -1)
+        $_SESSION['id'] = $s[1];
+        if ($s[0] == -1)
         {
-            header("Location: pt3.php");
+            $goahead = true;
         }
-    }
-    
-    
-    
-    
+        if (isset($_SESSION['again2']) && $_SESSION['again2'])
+        {
+            $goahead = true;
+        }
+        if (!$goahead)
+        {
+            header("Location: ptblock2.php");
+        }
+    }      
 ?>
 <head>
 <title>Providence Anesthesiology</title>
@@ -127,11 +134,11 @@ body {
     cursor: pointer;
     font-size: 20px;
 }
-    .control input {
-        position: absolute;
-        z-index: -1;
-        opacity: 0;
-    }
+.control input {
+    position: absolute;
+    z-index: -1;
+    opacity: 0;
+}
 .control_indicator {
     position: absolute;
     top: 1px;
@@ -142,7 +149,7 @@ body {
     border: 2px solid #000000;
 }
 .control-radio .control_indicator {
-    border-radius: undefined%;
+    border-radius: undefined;
 }
 
 .control:hover input ~ .control_indicator,
@@ -209,16 +216,17 @@ button.btn:hover{ background-color: #7db4dc; -webkit-transition-duration: 1.0s; 
 </div>
 
 <div class="topnav">
-  <a href="#">Evening of Surgery</a>
-  <a href="#">Postoperative Day #1</a>
-  <a href="#">Postoperative Day #2</a>
-  <a href="#">Block Information</a>
-  <a href="#">FAQs</a>
+  <a href="eos.php">Evening of Surgery</a>
+  <a href="ptblock1.php">Postoperative Day #1</a>
+  <a href="pt2entry.php">Postoperative Day #2</a>
+  <a href="blockInformation.php">Block Information</a>
+  <a href="faqs.php">FAQs</a>
+  <a href="logout.php">Logout</a>
 </div>
     <br><br>
     <center><h1>POSTOPERATIVE DAY #2</h1></center>
     <br><br>
-    <center><h1>What is your current pain level? (Check One)</h1></center>
+    <center><h1>What is your current pain level?</h1></center>
     <br>
     <table style="border-style:solid; width:70%; margin-right:auto; margin-left:auto; font-size:20;">
             <tr>
@@ -243,11 +251,11 @@ button.btn:hover{ background-color: #7db4dc; -webkit-transition-duration: 1.0s; 
     </table>
 
                 
-<?php
-echo'
+
     <form action="action_page_pt_day2entry.php" method="post">
     <table style="border-style:solid; width:70%; margin-right:auto; margin-left:auto;">
             <tr>
+
                 <td style="border:none; width:10%;">                
                 <label class="control control-checkbox">
                  1
@@ -267,7 +275,7 @@ echo'
                 <td style="border:none; width:10%;">
                 <label class="control control-checkbox">
                  3
-                <input type="radio" id="3" name="pscore" value="3" onchange="click2(3)"/>
+                <input type="radio" id="3" name="pscore" value="3"/>
                 <div class="control_indicator"></div>
                 </label>
                 </td>
@@ -275,7 +283,7 @@ echo'
                 <td style="border:none; width:10%;">
                 <label class="control control-checkbox">
                  4
-                <input type="radio" id="4" name="pscore" value="4" onchange="click2(4)"/>
+                <input type="radio" id="4" name="pscore" value="4"/>
                 <div class="control_indicator"></div>
                 </label>
                 </td>
@@ -283,7 +291,7 @@ echo'
                 <td style="border:none; width:10%;">
                 <label class="control control-checkbox">
                  5
-                <input type="radio" id="5" name="pscore" value="5" onchange="click2(5)"/>
+                <input type="radio" id="5" name="pscore" value="5"/>
                 <div class="control_indicator"></div>
                 </label>
                 </td>
@@ -291,7 +299,7 @@ echo'
                 <td style="border:none; width:10%;">
                 <label class="control control-checkbox">
                  6
-                <input type="radio" id="6" name="pscore" value="6" onchange="click2(6)"/>
+                <input type="radio" id="6" name="pscore" value="6"/>
                 <div class="control_indicator"></div>
                 </label>            
                 </td>
@@ -299,7 +307,7 @@ echo'
                 <td style="border:none; width:10%;">
                 <label class="control control-checkbox">
                  7
-                <input type="radio" id="7" name="pscore" value="7" onchange="click2(7)"/>
+                <input type="radio" id="7" name="pscore" value="7"/>
                 <div class="control_indicator"></div>
                 </label>                
                 </td>
@@ -307,7 +315,7 @@ echo'
                 <td style="border:none; width:10%;">
                 <label class="control control-checkbox">
                  8
-                <input type="radio" id="8" name="pscore" value="8" onchange="click2(8)"/>
+                <input type="radio" id="8" name="pscore" value="8"/>
                 <div class="control_indicator"></div>
                 </label>             
                 </td>
@@ -315,7 +323,7 @@ echo'
                 <td style="border:none; width:10%;">
                 <label class="control control-checkbox">
                  9
-                <input type="radio" id="9" name="pscore" value="9" onchange="click2(9)"/>
+                <input type="radio" id="9" name="pscore" value="9"/>
                 <div class="control_indicator"></div>
                 </label>             
                 </td>
@@ -323,12 +331,10 @@ echo'
                 <td style="border:none; width:10%;">
                 <label class="control control-checkbox">
                  10
-                <input type="radio" id="10" name="pscore" value="10" onchange="click2(10)"/>
+                <input type="radio" id="10" name="pscore" value="10"/>
                 <div class="control_indicator"></div>
                 </label>             
-                </td>';
-                
-echo'
+                </td>                
             </tr>
             <tr>
                 <td>
@@ -363,18 +369,17 @@ echo'
                 </td>
             </tr>           
     </table>
-    <br><br>';
+    <br><br>
 
 
 
-    echo'
     <svg height="10" width="'.$_SESSION['w'].'">
     <line x1="'.$_SESSION['w']*.15.'" y1="0" x2="'.$_SESSION['w']*.85.'" y2="0" style="stroke:#7db4dc;stroke-width:10" />
     </svg>
     <br><br>
-    <h1><center>Do you have weakness in the area of the nerve block? (Check One)</center></h1>
+    <center><h1>Do you have weakness in the area of the nerve block?</h1></center>
     <br>
-    <table style=width:100%; margin-right:auto; margin-left:auto">
+    <table style="width:100%; margin-right:auto; margin-left:auto">
             <tr>
 
                 <td style="border:none; width:25%">
@@ -386,9 +391,9 @@ echo'
                 <tr>
                 <td>
 		<label class="control control-checkbox">
-                 Yes
-                 <input type="checkbox" id="motory"/>
-                    <div class="control_indicator"></div>
+                Yes
+                <input type="checkbox" id="motory" name="motor" value="1"/>
+                <div class="control_indicator"></div>
                 </label>
                 </td>
                 </tr>
@@ -402,9 +407,9 @@ echo'
                 <tr>
                 <td>
 		<label class="control control-checkbox">
-                 No
-                 <input type="checkbox" id="motorn"/>
-                    <div class="control_indicator"></div>
+                No
+                <input type="checkbox" id="motorn" name="motor" value="0"/>
+                <div class="control_indicator"></div>
                 </label>
                 </td>
                 </tr>
@@ -417,11 +422,8 @@ echo'
                 
             </tr>
     </table>
-
-    <br><br>';
-?>
+    <br><br>
     
-
     <script type="text/javascript">
     function clickYes() {
         if (document.getElementById("motorn").checked) {
@@ -453,7 +455,7 @@ echo'
     <line x1="'.$_SESSION['w']*.15.'" y1="0" x2="'.$_SESSION['w']*.85.'" y2="0" style="stroke:#7db4dc;stroke-width:10" />
     </svg>
     <br><br>
-    <h1><center>Do you have numbness in the area of the nerve block? (Check One)</center></h1>
+    <h1><center>Do you have numbness in the area of the nerve block?</center></h1>
     <br>
      <table style=width:100%; margin-right:auto; margin-left:auto">
             <tr>
@@ -468,7 +470,7 @@ echo'
                 <td>
 		<label class="control control-checkbox">
                  Yes
-                 <input type="checkbox" id="sensoryy"/>
+                 <input type="checkbox" id="sensoryy" name="sensory" value="1"/>
                     <div class="control_indicator"></div>
                 </label>
                 </td>
@@ -484,7 +486,7 @@ echo'
                 <td>
 		<label class="control control-checkbox">
                  No
-                 <input type="checkbox" id="sensoryn"/>
+                 <input type="checkbox" id="sensoryn" name="sensory" value="0"/>
                     <div class="control_indicator"></div>
                 </label>
                 </td>
@@ -530,64 +532,61 @@ echo'
    
                 
 <?php
-
 echo'
-      <svg height="10" width="'.$_SESSION['w'].'">
-      <line x1="'.$_SESSION['w']*.15.'" y1="0" x2="'.$_SESSION['w']*.85.'" y2="0" style="stroke:#7db4dc;stroke-width:10" />
-      </svg>
+    <svg height="10" width="'.$_SESSION['w'].'">
+    <line x1="'.$_SESSION['w']*.15.'" y1="0" x2="'.$_SESSION['w']*.85.'" y2="0" style="stroke:#7db4dc;stroke-width:10" />
+    </svg>
       
     <br><br>
-    <h1><center>Have you been taking Tylenol (acetaminophen)? (Check One)</center></h1>
+    <center><h1>Have you been taking Tylenol (acetaminophen)?</h1></center>
     <br>
-     <table style=width:100%; margin-right:auto; margin-left:auto">
+    <table style=width:100%; margin-right:auto; margin-left:auto">
+        <tr>
+            <td style="border:none; width:25%">
+            </td>
+
+            <td style="border:none; width:25%;">
+
+            <table style="border-style:solid; margin-right:auto; margin-left:auto;">
             <tr>
-
-                <td style="border:none; width:25%">
-                </td>
-                
-                <td style="border:none; width:25%;">
-
-                <table style="border-style:solid; margin-right:auto; margin-left:auto;">
-                <tr>
-                <td>
-		<label class="control control-checkbox">
-                 Yes
-                 <input type="checkbox" id="tylenoly" name="tylenol"/>
-                    <div class="control_indicator"></div>
-                </label>
-                </td>
-                </tr>
-                </table>
-                
-                </td>
-                
-                <td style="border:none; width:25%;">
-                
-                <table style="border-style:solid; margin-right:auto; margin-left:auto;">
-                <tr>
-                <td>
-		<label class="control control-checkbox">
-                 No
-                 <input type="checkbox" id="tylenoln" name="tylenol"/>
-                    <div class="control_indicator"></div>
-                </label>
-                </td>
-                </tr>
-                </table>
-
-                </td>
-                
-                <td style="border:none; width:25%">
-                </td>
-                
+            <td>
+            <label class="control control-checkbox">
+            Yes
+            <input type="checkbox" id="tylenoly" name="tylenol" value="1"/>
+            <div class="control_indicator"></div>
+            </label>
+            </td>
             </tr>
-    </table><br>
+            </table>
+
+            </td>
+
+            <td style="border:none; width:25%;">
+
+            <table style="border-style:solid; margin-right:auto; margin-left:auto;">
+            <tr>
+            <td>
+            <label class="control control-checkbox">
+            No
+            <input type="checkbox" id="tylenoln" name="tylenol" value="0"/>
+            <div class="control_indicator"></div>
+            </label>
+            </td>
+            </tr>
+            </table>
+
+            </td>
+            <td style="border:none; width:25%">
+            </td>
+        </tr>
+    </table>
+    <br>
     <svg height="10" width="'.$_SESSION['w'].'">
     <line x1="'.$_SESSION['w']*.15.'" y1="0" x2="'.$_SESSION['w']*.85.'" y2="0" style="stroke:#7db4dc;stroke-width:10" />
     </svg>';
 ?>
    
-   <script type="text/javascript">
+    <script type="text/javascript">
     function clickYesT() {
         if (document.getElementById("tylenoln").checked) {
                         document.getElementById("tylenoln").checked = false;
@@ -604,63 +603,62 @@ echo'
     document.getElementById("tylenoln").onchange = clickNoT;
     </script>
     
-    
-<?php
-
-    echo'
+ <?php
+ echo'
     <br><br>
-    <h1><center>Have you been taking Non-steroidal Anti-inflammatory Drugs (NSAIDS)? (Check One)</center></h1><br>
-    <h2><center>(such as Motrin, Advil, ibuprofen, diclofenac, naproxen, Naprosyn, etodolac, ketorolac, Toradol)</center></h2>
+    <center><h1>Have you been taking Non-steroidal Anti-inflammatory Drugs (NSAIDS)?</h1></center><br>
+    <center><h2>(such as Motrin, Advil, ibuprofen, diclofenac, naproxen, Naprosyn, etodolac, ketorolac, Toradol)</h2></center>
     <br>
-     <table style=width:100%; margin-right:auto; margin-left:auto">
+    <table style=width:100%; margin-right:auto; margin-left:auto">
             <tr>
 
                 <td style="border:none; width:25%">
                 </td>
-                
+
                 <td style="border:none; width:25%;">
 
                 <table style="border-style:solid; margin-right:auto; margin-left:auto;">
                 <tr>
                 <td>
-		<label class="control control-checkbox">
-                 Yes
-                 <input type="checkbox" id="nsaidsy" name="nsaids"/>
-                    <div class="control_indicator"></div>
-                </label>
-                </td>
-                </tr>
-                </table>
-                
-                </td>
-                
-                <td style="border:none; width:25%;">
-                
-                <table style="border-style:solid; margin-right:auto; margin-left:auto;">
-                <tr>
-                <td>
-		<label class="control control-checkbox">
-                 No
-                 <input type="checkbox" id="nsaidsn" name="nsaids"/>
-                    <div class="control_indicator"></div>
+                <label class="control control-checkbox">
+                Yes
+                <input type="checkbox" id="nsaidsy" name="nsaids" value="1"/>
+                <div class="control_indicator"></div>
                 </label>
                 </td>
                 </tr>
                 </table>
 
                 </td>
-                
+
+                <td style="border:none; width:25%;">
+
+                <table style="border-style:solid; margin-right:auto; margin-left:auto;">
+                <tr>
+                <td>
+                <label class="control control-checkbox">
+                No
+                <input type="checkbox" id="nsaidsn" name="nsaids" value="0"/>
+                <div class="control_indicator"></div>
+                </label>
+                </td>
+                </tr>
+                </table>
+
+                </td>
+
                 <td style="border:none; width:25%">
                 </td>
-                
+
             </tr>
-    </table><br>
+    </table>
+    <br>
     <svg height="10" width="'.$_SESSION['w'].'">
     <line x1="'.$_SESSION['w']*.15.'" y1="0" x2="'.$_SESSION['w']*.85.'" y2="0" style="stroke:#7db4dc;stroke-width:10" />
     </svg>';
 ?>
    
-   <script type="text/javascript">
+    <script type="text/javascript">
     function clickYesN() {
         if (document.getElementById("nsaidsn").checked) {
                         document.getElementById("nsaidsn").checked = false;
@@ -675,59 +673,53 @@ echo'
 
     document.getElementById("nsaidsy").onchange = clickYesN;
     document.getElementById("nsaidsn").onchange = clickNoN;
-    </script>
-    
-    
-    <?php
+    </script>';
 
-    echo'
-    <br><br>
-    <h1><center>Have you been taking any opioids? (Check One)</center></h1><br>
-    <h2><center>(such as oxycodone, hydrocodone, codeine, Lortab, Lorcet, Oxycontin, Vicodin, Percocet)</center></h2>
-    <br>
-     <table style=width:100%; margin-right:auto; margin-left:auto">
-            <tr>
+<?php
+    echo
+    '<br><br> '.
+    '<h1><center>Have you been taking any opioids?</center></h1><br> '.
+    '<h2><center>(such as oxycodone, hydrocodone, codeine, Lortab, Lorcet, Oxycontin, Vicodin, Percocet)</center></h2> '.
+    '<br> '.
+    '<table style=width:100%; margin-right:auto; margin-left:auto"> '.
+        '<tr> '.
+            '<td style="border:none; width:25%"> '.
+            '</td> '.                
+            '<td style="border:none; width:25%;"> '.
 
-                <td style="border:none; width:25%">
-                </td>
-                
-                <td style="border:none; width:25%;">
+            '<table style="border-style:solid; margin-right:auto; margin-left:auto;"> '.
+                '<tr> '.
+                    '<td> '.
+                    '<label class="control control-checkbox"> '.
+                    'Yes '.
+                    '<input type="checkbox" id="narcsy" name="narcs" value="1"/> '.
+                    '<div class="control_indicator"></div> '.
+                    '</label> '.
+                    '</td> '.
+                '</tr> '.
+            '</table> '.
+               
+            '</td> '.
+            '<td style="border:none; width:25%;"> '.
 
-                <table style="border-style:solid; margin-right:auto; margin-left:auto;">
-                <tr>
-                <td>
-		<label class="control control-checkbox">
-                 Yes
-                 <input type="checkbox" id="narcsy" name="narcs"/>
-                    <div class="control_indicator"></div>
-                </label>
-                </td>
-                </tr>
-                </table>
-                
-                </td>
-                
-                <td style="border:none; width:25%;">
-                
-                <table style="border-style:solid; margin-right:auto; margin-left:auto;">
-                <tr>
-                <td>
-		<label class="control control-checkbox">
-                 No
-                 <input type="checkbox" id="narcsn" name="narcs"/>
-                    <div class="control_indicator"></div>
-                </label>
-                </td>
-                </tr>
-                </table>
+            '<table style="border-style:solid; margin-right:auto; margin-left:auto;"> '.
+                '<tr> '.
+                    '<td> '.
+                    '<label class="control control-checkbox"> '.
+                    'No '.
+                    '<input type="checkbox" id="narcsn" name="narcs" value="0"/> '.
+                    '<div class="control_indicator"></div> '.
+                    '</label> '.
+                    '</td> '.
+                '</tr> '.
+            '</table> '.
 
-                </td>
-                
-                <td style="border:none; width:25%">
-                </td>
-                
-            </tr>
-    </table><br>';
+            '</td> '.
+            '<td style="border:none; width:25%"> '.
+            '</td> '.     
+        '</tr> '.
+    '</table> '.
+    '<br>';
 ?>
    
    <script type="text/javascript">
@@ -749,25 +741,22 @@ echo'
     
 
 <?php
-echo'
-
-    <svg height="10" width="'.$_SESSION['w'].'">
-    <line x1="'.$_SESSION['w']*.15.'" y1="0" x2="'.$_SESSION['w']*.85.'" y2="0" style="stroke:#7db4dc;stroke-width:10" />
-    </svg>
-    <br><br>
-      <h1><center>If the Block Has Worn Off:  Enter Date and Hour Block Wore Off.</center></h1>
-      <br>
-            <table style="width:35%; border-style:solid; margin-left:auto; margin-right:auto;">
-                <tr>
-                    <td style="width:33%; border:none; text-align:center"><b>Month</b></td><td style="width:33%; border:none; text-align:center">
-                    <b>Day</b></td><td style="width:33%; border:none; text-align:center"><b>Hour</b></td>
-                </tr>
+echo
+    '<svg height="10" width="'.$_SESSION['w'].'"> '.
+    '<line x1="'.$_SESSION['w']*.15.'" y1="0" x2="'.$_SESSION['w']*.85.'" y2="0" style="stroke:#7db4dc;stroke-width:10" /> '.
+    '</svg> '.
+    '<br><br> '.
+      '<h1><center>If the Block Has Worn Off (if the area is not numb anymore):<br>Enter Date and Hour Block Wore Off.</center></h1> '.
+      '<br> '.
+            '<table style="width:35%; border-style:solid; margin-left:auto; margin-right:auto;"> '.
+                '<tr> '.
+                    '<td style="width:33%; border:none; text-align:center"><b>Month</b></td><td style="width:33%; border:none; text-align:center"> '.
+                    '<b>Day</b></td><td style="width:33%; border:none; text-align:center"><b>Hour</b></td> '.
+                '</tr> '.
                 
-
-                <tr>
-                    <td style="width:33%; border:none; text-align:center">
-                    
-                    <select name="month" id="month"  style="font-size:20;" onchange="click2()">';
+                '<tr> '.
+                    '<td style="width:33%; border:none; text-align:center"> '.                   
+                    '<select name="month" id="month"  style="font-size:20;" onchange="click2()">';
                     if ($datetime->format('n')=="1")
                     {
                         echo '<option selected value="1">January</option>';
@@ -938,11 +927,11 @@ echo'
                 
 <?php
 
-                echo'
-                    </select>
-                    </td>
-                    <td style="width:33%; border:none; text-align:center">
-                    <select name="hour" style="font-size:20;">';
+                echo
+                '</select> '.
+                    '</td> '.
+                    '<td style="width:33%; border:none; text-align:center"> '.
+                    '<select name="hour" style="font-size:20;">';
 
                 
                 for ($x=0; $x<=23; $x++)
@@ -958,13 +947,13 @@ echo'
                         echo'<option value='.$x.'>'.date_format($datetime2,"g A").'</option>';
                     }
                 }
-                echo'
-                    </select>
-                    </td>
-                </tr>
-            </table>
-            <br><br>                                               
-            </select>';
+                echo
+                    '</select> '.
+                    '</td> '.
+                '</tr> '.
+            '</table> '.
+     '<br><br> '.                                               
+     '</select>';
                     
 
 echo
@@ -974,9 +963,8 @@ echo
                      '<input type="submit" name="BReg" value="SUBMIT" class="btn">'.
                 '</td>'.
             '</tr>'.
-      '</table>'.
-      '</form>'.
-      '<br><br>'.
-      '</body>';
+    '</table>'.
+    '</form>'.
+    '<br><br>'.
+    '</body>';
 }
-
