@@ -20,6 +20,16 @@ else
             "narcotics2 = ".$_POST['narcs']." ".
          "WHERE id = ".$_SESSION['id'];
     $r = mysqli_query($dbc, $q);
+    
+    if ($_POST['sensory']==0)
+    {
+        $s = "UPDATE patients ".
+             "SET hournumberdone = ".$_POST['hour'].", ".
+                 "monthnumberdone = ".$_POST['month'].", ".
+                 "daynumberdone = ".$_POST['day']." ".
+             "WHERE id = ".$_SESSION['id'];
+        $t = mysqli_query($dbc, $s);
+    }
     unset($_SESSION['id']);
     echo'
     <script>
