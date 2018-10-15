@@ -89,6 +89,17 @@ else
                 ", ".$yearnumber.", 1)";
         $b = mysqli_query($dbc, $a);
     }
+    
+    $un = strtolower($_SESSION['fname'][0]).strtolower($_SESSION['lname']);
+    $pa =  hash('sha1', $_SESSION['phone']);
+    $z = "SELECT id FROM patients WHERE fname LIKE '".$_SESSION['fname']."' AND lname LIKE '".$_SESSION['lname']."' AND active=1";
+    $w = mysqli_query($dbc, $z);
+    $v = mysqli_fetch_array($w);
+    $idp = $v[0];
+    $c = "INSERT INTO patientusers (username, pass, patientsid) ".
+         "VALUES ('".$un."', '".$pa."', ".$idp.")";
+    $d = mysqli_query($dbc, $c);
+    
     echo'
     <script>
         window.location="registration.php";
