@@ -43,7 +43,15 @@ if (isset($_GET["w"]) || isset($_SESSION['w']))
 
             if (isset($_SESSION['ptphone']) && filterphone($_SESSION['ptphone']))
             {
-                header("Location: blockinformation.php");
+                if (isset($_SESSION['pt1entry']) && $_SESSION['pt1entry']==true)
+                {
+                    unset($_SESSION['pt1entry']);
+                    header("Location: pt1entry.php");
+                }
+                else
+                {
+                    header("Location: blockinformation.php");
+                }
                 die();
             }
             else
