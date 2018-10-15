@@ -29,11 +29,7 @@ else
         $s = mysqli_fetch_array($r);
         if ($s[0] > -1)
         {
-?>
-        <script>
-        window.location.assign("pt3.php");
-        </script>
-<?php
+            header("Location: pt3.php");
         }
     }
     
@@ -249,6 +245,7 @@ button.btn:hover{ background-color: #7db4dc; -webkit-transition-duration: 1.0s; 
                 
 <?php
 echo'
+    <form action="action_page_pt_day2entry.php" method="post">
     <table style="border-style:solid; width:70%; margin-right:auto; margin-left:auto;">
             <tr>
                 <td style="border:none; width:10%;">                
@@ -966,21 +963,20 @@ echo'
                     </td>
                 </tr>
             </table>
-      <br><br>
-                                               
-                    </select>';
+            <br><br>                                               
+            </select>';
                     
 
-echo'
-    <table align="center" width="100%" style="text-align:left; padding-left:50px; padding-top:15px; padding-bottom:15px; border:none">
-            <tr>
-                <td width="50%" align="center" style="border: none">
-                     <input type="submit" name="BReg" value="SUBMIT" class="btn">
-                </td>
-            </tr>
-      </table>
-      </form>
-      <br><br>
-      </body>';
+echo
+    '<table align="center" width="100%" style="text-align:left; padding-left:50px; padding-top:15px; padding-bottom:15px; border:none">'.
+            '<tr>'.
+                '<td width="50%" align="center" style="border: none">'.
+                     '<input type="submit" name="BReg" value="SUBMIT" class="btn">'.
+                '</td>'.
+            '</tr>'.
+      '</table>'.
+      '</form>'.
+      '<br><br>'.
+      '</body>';
 }
 
