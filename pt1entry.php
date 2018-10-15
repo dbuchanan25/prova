@@ -388,7 +388,7 @@ button.btn:hover{ background-color: #7db4dc; -webkit-transition-duration: 1.0s; 
                 <td>
 		<label class="control control-checkbox">
                  Yes
-                 <input type="checkbox" id="motory"/>
+                 <input type="checkbox" id="motory" name="motor" value="1"/>
                     <div class="control_indicator"></div>
                 </label>
                 </td>
@@ -404,7 +404,7 @@ button.btn:hover{ background-color: #7db4dc; -webkit-transition-duration: 1.0s; 
                 <td>
 		<label class="control control-checkbox">
                  No
-                 <input type="checkbox" id="motorn"/>
+                 <input type="checkbox" id="motorn" name="motor" value="0"/>
                     <div class="control_indicator"></div>
                 </label>
                 </td>
@@ -466,7 +466,7 @@ button.btn:hover{ background-color: #7db4dc; -webkit-transition-duration: 1.0s; 
                 <td>
 		<label class="control control-checkbox">
                  Yes
-                 <input type="checkbox" id="sensoryy"/>
+                 <input type="checkbox" id="sensoryy" name="sensory" value="1"/>
                     <div class="control_indicator"></div>
                 </label>
                 </td>
@@ -482,7 +482,7 @@ button.btn:hover{ background-color: #7db4dc; -webkit-transition-duration: 1.0s; 
                 <td>
 		<label class="control control-checkbox">
                  No
-                 <input type="checkbox" id="sensoryn"/>
+                 <input type="checkbox" id="sensoryn" name="sensory" value="0"/>
                     <div class="control_indicator"></div>
                 </label>
                 </td>
@@ -550,7 +550,7 @@ echo'
                 <td>
 		<label class="control control-checkbox">
                  Yes
-                 <input type="checkbox" id="tylenoly" name="tylenol"/>
+                 <input type="checkbox" id="tylenoly" name="tylenol" value="1"/>
                     <div class="control_indicator"></div>
                 </label>
                 </td>
@@ -566,7 +566,7 @@ echo'
                 <td>
 		<label class="control control-checkbox">
                  No
-                 <input type="checkbox" id="tylenoln" name="tylenol"/>
+                 <input type="checkbox" id="tylenoln" name="tylenol" value="0"/>
                     <div class="control_indicator"></div>
                 </label>
                 </td>
@@ -623,7 +623,7 @@ echo'
                 <td>
 		<label class="control control-checkbox">
                  Yes
-                 <input type="checkbox" id="nsaidsy" name="nsaids"/>
+                 <input type="checkbox" id="nsaidsy" name="nsaids" value="1"/>
                     <div class="control_indicator"></div>
                 </label>
                 </td>
@@ -639,7 +639,7 @@ echo'
                 <td>
 		<label class="control control-checkbox">
                  No
-                 <input type="checkbox" id="nsaidsn" name="nsaids"/>
+                 <input type="checkbox" id="nsaidsn" name="nsaids" value="0"/>
                     <div class="control_indicator"></div>
                 </label>
                 </td>
@@ -694,7 +694,7 @@ echo'
                     '<td> '.
                     '<label class="control control-checkbox"> '.
                     'Yes '.
-                    '<input type="checkbox" id="narcsy" name="narcs"/> '.
+                    '<input type="checkbox" id="narcsy" name="narcs" value="1"/> '.
                     '<div class="control_indicator"></div> '.
                     '</label> '.
                     '</td> '.
@@ -709,7 +709,7 @@ echo'
                     '<td> '.
                     '<label class="control control-checkbox"> '.
                     'No '.
-                    '<input type="checkbox" id="narcsn" name="narcs"/> '.
+                    '<input type="checkbox" id="narcsn" name="narcs" value="0"/> '.
                     '<div class="control_indicator"></div> '.
                     '</label> '.
                     '</td> '.
