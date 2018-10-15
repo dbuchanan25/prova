@@ -20,35 +20,6 @@ else
     $ph = $_SESSION['ptphone'];
     $phcomplete = "(".substr($ph,0,3).") ".substr($ph,3,3)."-".substr($ph,6);
     
-    $q = "SELECT painscore1 ".
-         "FROM patients ".
-         "WHERE phone LIKE '".$phcomplete."' ".
-         "AND active = 1";
-    $r = mysqli_query($dbc, $q);
-    
-    $t = "SELECT painscore1,painscore2 ".
-         "FROM patients ".
-         "WHERE phone LIKE '".$phcomplete."' ".
-         "AND active = 1";
-    $u = mysqli_query($dbc, $t);
-    
-    if ($r !== false)
-    {
-        $s = mysqli_fetch_array($r);
-        if ($s[0] > -1)
-        {
-            $_SESSION['ptblock1'] = true;
-        }
-    }
-    
-     if ($u !== false)
-    {
-        $v = mysqli_fetch_array($u);
-        if ($v[0] > -1)
-        {
-            $_SESSION['ptblock2'] = true;
-        }
-    }   
 ?>
 <head>
 <title>Providence Anesthesiology</title>
