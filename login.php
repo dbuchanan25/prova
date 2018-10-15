@@ -48,6 +48,11 @@ if (isset($_GET["w"]) || isset($_SESSION['w']))
                     unset($_SESSION['pt1entry']);
                     header("Location: pt1entry.php");
                 }
+                else if (isset($_SESSION['pt2entry']) && $_SESSION['pt2entry']==true)
+                {
+                    unset($_SESSION['pt2entry']);
+                    header("Location: pt2entry.php");
+                }
                 else
                 {
                     header("Location: blockinformation.php");
