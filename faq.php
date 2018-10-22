@@ -209,6 +209,9 @@ input.btn2:hover{ background-color: #7db4dc; -webkit-transition-duration: 1.0s; 
 button.btn {color:#000000; font: 100%"arial",helvetica,sans-serif; border-width: 3px; border-style: outset; background-color: #fafafa; padding:10px; align:center; font-size:100%;  width:50%;}
 button.btn:hover{ background-color: #7db4dc; -webkit-transition-duration: 1.0s;  transition-duration: 1.0s;}
 
+h3 {color:#000000; font: 150%"arial",helvetica,sans-serif; text-align: justify; margin-left: 30px; margin-right: 30px}
+h2 {color:blue; text-align: center; font-family:"Segoe UI",Arial,sans-serif; font-size:32px;}
+
 </style>
 </head>
 <body>
@@ -270,10 +273,49 @@ else if (!($_SESSION['ptblock1'] && !$_SESSION['ptblock2']))
 
 ?>
     <br><br>
-    <center><h1>Frequently Asked Questions</h1></center>
+    <center>
+        <h1>Frequently Asked Questions
+            <br>
+            (Also please see the <a href="blockInformation.php">Block Information Tab</a>)
+        </h1>
+    </center>
     <br><br>
+    <h2>1.  Why am I having pain when I have a nerve block?</h2>
+    <h3>There are a number of reasons you could be having pain after your operation.<br><br>
+    First of all, at the time of nerve block catheter placement, a high concentration of local
+    anesthetic is used to anesthetize or “numb” the operative site extremity. This can last from
+    8-16 hours. After that, the local anesthetic infusion, which is a lower concentration, will
+    provide analgesia or pain relief to the extremity. It is normal for the extremity to feel like it
+    is waking up, including being able to move the extremity and experiencing increased
+    sensation to the extremity. This does not necessarily mean that the catheter is not working.<br><br>
+    Secondly, sometimes the sensation of pain can extend beyond the nerve block coverage.<br><br>
+    Thirdly, a mechanical issue, like a clamped or kinked tube, of the nerve block infusion may be 
+    keeping the local anesthetic medicine from infusing properly.<br><br>
+    Check to make sure the block tubing is not clamped or kinked.  Make sure the extremity is not out of
+    a sling or in a bad position.  Also, if you have a fever or signs the extremity is not getting enough
+    blood flow (absent pulse or delayed capillary refill (Press the nail bed of that extremity, then let go.  
+    Blood should return under the nail within 2 seconds)), then get in touch with your surgeon.</h3>
     <br><br>
-    </body>';
+    <h2>2.  Is it normal to have leaking from around the nerve block tube (catheter)?</h2>
+    <h3>Leaking around the nerve block catheter is common and related to infusing medication liquid 
+    into a place where there is normally not any liquid.  If the liquid is clear or slightly
+    blood tinged, then that is OK.  If where the catheter goes through the skin has blood coming
+    from around it, then hold pressure for 5-10 minutes and it should stop.  If it does not, please call us.  
+    If the catheter has become disconnected or dislodged, please call us.</h3>
+    <br><br>
+    <h2>3.  Is it normal to have hoarseness, a drooping eyelid, or minor difficulty breathing?</h2>
+    <h3>These symptoms are very common with interscalene (neck) nerve block catheters and are caused by 
+    other nerves in and around the shoulder nerves also being blocked. These symptoms almost always resolve when 
+    the infusion is complete.<br><br>
+    If symptoms are overly disconcerting, you can clamp the catheter. The symptoms should resolve after 1-2 hours. 
+    If this is done, your pain may intensify.  You may restart the 
+    infusion after the symptoms get better.<br><br>
+    If the side effect symptoms (feeling of difficulty breathing, hoarse voice, drooping eye) are worse than the
+    pain, you may remove the catheter and take medicine for pain as prescribed by surgeon.<br><br>
+    If it is very difficult to breath, you should call 911.
+    </h3>
+    <br><br>
+    </body>
 <?php
 }
-
+?>
