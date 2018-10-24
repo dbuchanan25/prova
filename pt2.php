@@ -41,7 +41,6 @@ else
     
     
 ?>
-<head>
 <title>Providence Anesthesiology</title>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -146,7 +145,7 @@ body {
     border: 2px solid #000000;
 }
 .control-radio .control_indicator {
-    border-radius: undefined%;
+    border-radius: undefined;
 }
 
 .control:hover input ~ .control_indicator,
