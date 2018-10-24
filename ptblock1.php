@@ -160,7 +160,7 @@ body {
     border: 2px solid #000000;
 }
 .control-radio .control_indicator {
-    border-radius: undefined%;
+    border-radius: undefined;
 }
 
 .control:hover input ~ .control_indicator,
