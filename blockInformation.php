@@ -398,11 +398,11 @@ What do I need to do?
     <h5>
     Why is this important to me?
     </h5>
-    <div class="bodytext">
-        Your comfort is our goal.<br><br>
-        You are at risk for injury. Following these instructions can keep you safe.<br><br>
-        A 24-hour contact number for questions or problems around the pump is in your patient guide that comes with the pain pump.
-    </div>
+    <ul>
+        <li>Your comfort is our goal.</li>
+        <li>You are at risk for injury. Following these instructions can keep you safe.</li>
+        <li>A 24-hour contact number for questions or problems around the pump is in your patient guide that comes with the pain pump.</li>
+    </ul>
     </body> 
 <?php
 }
