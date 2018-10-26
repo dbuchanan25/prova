@@ -293,7 +293,7 @@ else if (!($_SESSION['ptblock1'] && !$_SESSION['ptblock2']))
     keeping the local anesthetic medicine from infusing properly.<br><br>
     Check to make sure the block tubing is not clamped or kinked.  Make sure the extremity is not out of
     a sling or in a bad position.  Also, if you have a fever or signs the extremity is not getting enough
-    blood flow (absent pulse or delayed capillary refill (Press the nail bed of that extremity, then let go.  
+    blood flow (absent pulse or delayed capillary refill (Press a nail of a finger or toe of the arm or leg where the block is, then let go.  
     Blood should return under the nail within 2 seconds)), then get in touch with your surgeon.</h3>
     <br><br>
     <h2>2.  Is it normal to have leaking from around the nerve block tube (catheter)?</h2>
