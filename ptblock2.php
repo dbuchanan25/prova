@@ -213,20 +213,47 @@ button.btn:hover{ background-color: #7db4dc; -webkit-transition-duration: 1.0s; 
 </head>
 <body>
 
+<script type="text/javascript">    
+function doOnOrientationChange()
+{
+    window.location("resetwidth.php");
+}
+window.addEventListener('orientationchange', doOnOrientationChange);
+
+var resizeTimer; 
+var cachedWidth = window.innerWidth;
+
+window.addEventListener("resize", doOnResize); 
+
+function doOnResize()
+{
+    clearTimeout(resizeTimer);
+    var new_width = window.innerWidth;
+    if(new_width !== cachedWidth)
+    {
+        resizeTimer = setTimeout(function() 
+        {
+            var new_width = window.innerWidth;
+            var new_height = window.innerHeight;
+            window.location = "resetWidth3.php?w=" + new_width + "&h=" + new_height;            
+        }, 500);
+    }
+}
+</script>
 
 
-<div class="header">
-    <div class = "row">
-        <div class = "columnt">
-            <center><img src="includes/ProvidenceSmall.png" alt="PAA" /></center>
-        </div>
-        <div class = "columntr">
-            <center>Patient Block Page</center>
-        </div>
-    </div>
-</div>
-    
 <?php
+$winwidth = $_SESSION['w'];
+echo'
+<html>
+<title>FAQs</title>
+<body>
+
+<div class="columntr" style="background-color:#7db4dc; padding:20px;">
+  <img src="includes/ProvidenceSmall.png" alt="PAA" style="height='.($winwidth*0.2369*.5*.7).'; width='.($winwidth*.5*.7).';" />
+</div>';
+
+
 if ($_SESSION['ptblock1'] && !$_SESSION['ptblock2'])
 {
 ?>
