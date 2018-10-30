@@ -212,12 +212,53 @@ button.btn:hover{ background-color: #7db4dc; -webkit-transition-duration: 1.0s; 
 h3 {color:#000000; font: 150%"arial",helvetica,sans-serif; text-align: justify; margin-left: 30px; margin-right: 30px}
 h2 {color:blue; text-align: center; font-family:"Segoe UI",Arial,sans-serif; font-size:32px;}
 
+.w3-padding{padding:8px 16px}
+.w3-center{display:inline-block;width:auto}
+
 </style>
 </head>
 <body>
+    
+<script type="text/javascript">    
+function doOnOrientationChange()
+{
+    window.location("resetwidth.php");
+}
+window.addEventListener('orientationchange', doOnOrientationChange);
+
+var resizeTimer; 
+var cachedWidth = window.innerWidth;
+
+window.addEventListener("resize", doOnResize); 
+
+function doOnResize()
+{
+    clearTimeout(resizeTimer);
+    var new_width = window.innerWidth;
+    if(new_width !== cachedWidth)
+    {
+        resizeTimer = setTimeout(function() 
+        {
+            var new_width = window.innerWidth;
+            var new_height = window.innerHeight;
+            window.location = "resetWidth3.php?w=" + new_width + "&h=" + new_height;            
+        }, 500);
+    }
+}
+</script>
 
 
+<?php
+$winwidth = $_SESSION['w'];
+echo'
+<html>
+<title>FAQs</title>
+<body>
 
+<div class="columntr" style="background-color:#7db4dc; padding:20px;">
+  <img src="includes/ProvidenceSmall.png" alt="PAA" style="height='.($winwidth*0.2369*.5*.7).'; width='.($winwidth*.5*.7).';" />
+</div>';
+/*
 <div class="header">
     <div class = "row">
         <div class = "columnt">
@@ -228,6 +269,9 @@ h2 {color:blue; text-align: center; font-family:"Segoe UI",Arial,sans-serif; fon
         </div>
     </div>
 </div>
+ * 
+ */
+?>
     
     
     
