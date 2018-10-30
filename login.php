@@ -46,23 +46,38 @@ if (isset($_GET["w"]) || isset($_SESSION['w']))
                 if (isset($_SESSION['pt1entry']) && $_SESSION['pt1entry']==true)
                 {
                     unset($_SESSION['pt1entry']);
-                    header("Location: pt1entry.php");
+                    ?>
+                        <script type="text/javascript">
+                            window.location = "pt1entry.php";
+                        </script>
+                    <?php
                 }
                 else if (isset($_SESSION['pt2entry']) && $_SESSION['pt2entry']==true)
                 {
                     unset($_SESSION['pt2entry']);
-                    header("Location: pt2entry.php");
+                    ?>
+                        <script type="text/javascript">
+                            window.location = "pt2entry.php";
+                        </script>
+                    <?php
                 }
                 else
                 {
-                    header("Location: blockinformation.php");
+                    ?>
+                    <script type="text/javascript">
+                        window.location = "blockinformation.php";
+                    </script>
+                    <?php
                 }
                 die();
             }
             else
             {
-                header("Location: registration.php");
-                die();
+                ?>
+                <script type="text/javascript">
+                    window.location = "registration.php";
+                </script>
+                <?php
             }
         }
         else
