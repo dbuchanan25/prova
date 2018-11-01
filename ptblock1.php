@@ -84,7 +84,7 @@ body {
     overflow: hidden;
     background-color: #DDDDDD;
     font-family:"Segoe UI",Arial,sans-serif;
-    font-size:20px;
+    font-size:18px;
     margin:10px;
 }
 
@@ -127,6 +127,8 @@ body {
     display: table;
     clear: both;
 }
+
+.row2{margin:10px; padding:10px;}
 
 /* Responsive layout - makes the three columns stack on top of each other instead of next to each other */
 /*@media screen and (max-width:600px) {
@@ -214,12 +216,6 @@ button.btn:hover{ background-color: #7db4dc; -webkit-transition-duration: 1.0s; 
 <body>
     
 <script type="text/javascript">    
-function doOnOrientationChange()
-{
-    window.location("resetwidth.php");
-}
-window.addEventListener('orientationchange', doOnOrientationChange);
-
 var resizeTimer; 
 var cachedWidth = window.innerWidth;
 
@@ -243,52 +239,47 @@ function doOnResize()
 
 
 <?php
-$winwidth = $_SESSION['w'];
 echo'
 <html>
-<title>FAQs</title>
+<title>Block Day 1</title>
 <body>
 
-<div class="columntr" style="background-color:#7db4dc; padding:20px;">
-  <img src="includes/ProvidenceSmall.png" alt="PAA" style="height='.($winwidth*0.2369*.5*.7).'; width='.($winwidth*.5*.7).';" />
+<div class="row2" style="background-color:#7db4dc; width:'.$_SESSION['w'].'">
+  <center><img src="includes/ProvidenceSmall.png" alt="PAA" height='.($_SESSION['w']*0.2369*.5*.7).'; width='.($_SESSION['w']*.5*.7).';" /></center>
 </div>';
 
 if ($_SESSION['ptblock1'] && !$_SESSION['ptblock2'])
 {
-?>
-<div class="topnav">
+echo'
+<div class="topnav" style="width:'.$_SESSION['w'].'">
   <a href="eos.php">Evening of Surgery</a>
   <a href="ptblock1.php">Postoperative Day #1</a>
   <a href="blockInformation.php">Block Information</a>
   <a href="faq.php">FAQs</a>
   <a href="logout.php">Logout</a>
-</div>
-    
-<?php
+</div>';
 }
 else if ($_SESSION['ptblock1'] && $_SESSION['ptblock2'])
 {
-?>
-<div class="topnav">
+echo'
+<div class="topnav" style="width:'.$_SESSION['w'].'">
   <a href="eos.php">Evening of Surgery</a>
   <a href="ptblock1.php">Postoperative Day #1</a>
   <a href="ptblock2.php">Postoperative Day #2</a>
   <a href="blockInformation.php">Block Information</a>
   <a href="faq.php">FAQs</a>
   <a href="logout.php">Logout</a>
-</div>
-<?php
+</div>';
 }
 else if (!($_SESSION['ptblock1'] && !$_SESSION['ptblock2']))
 {
-?>
-<div class="topnav">
+echo'
+<div class="topnav" style="width:'.$_SESSION['w'].'">
   <a href="eos.php">Evening of Surgery</a>
   <a href="blockInformation.php">Block Information</a>
   <a href="faq.php">FAQs</a>
   <a href="logout.php">Logout</a>
-</div>
-<?php
+</div>';
 }
 
     $q1 = "SELECT * ".
@@ -297,6 +288,7 @@ else if (!($_SESSION['ptblock1'] && !$_SESSION['ptblock2']))
           "AND active = 1";
     $r1 = mysqli_query($dbc, $q1);
     $s1 = mysqli_fetch_array($r1);
+    
 
 echo
     '<center><h1>POSTOPERATIVE DAY #1</h1></center>'.
@@ -319,9 +311,8 @@ echo
     }
 
     echo
-    '<svg height="10" width="'.$_SESSION['w'].'">'.
+    '<svg height="10" width="'.$_SESSION['w'].'">'.   
     '<line x1="'.$_SESSION['w']*.15.'" y1="0" x2="'.$_SESSION['w']*.85.'" y2="0" style="stroke:#7db4dc;stroke-width:10" />'.
-    '</svg>'.
     '<br><br>'.
     '<h2><center>Did you have weakness in the area of the nerve block?</center></h2>'.
     '<center><h1>'.$mb.'</h1></center>'.
