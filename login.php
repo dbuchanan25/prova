@@ -65,7 +65,7 @@ if (isset($_GET["w"]) || isset($_SESSION['w']))
                 {
                     ?>
                     <script type="text/javascript">
-                        window.location = "blockinformation.php";
+                        window.location = "blockInformation.php";
                     </script>
                     <?php
                 }
