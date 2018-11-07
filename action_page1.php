@@ -91,7 +91,10 @@ else
     }
     
     $un = strtolower($_SESSION['fname'][0]).strtolower($_SESSION['lname']);
-    $pa =  hash('sha1', $_SESSION['phone']);
+    $paall =  $_SESSION['phone'];
+    $pa = substr($paall,1,3).substr($paall,6,3).substr($paall,10,4);
+    $pa = SHA1($pa);
+
     $z = "SELECT id FROM patients WHERE fname LIKE '".$_SESSION['fname']."' AND lname LIKE '".$_SESSION['lname']."' AND active=1";
     $w = mysqli_query($dbc, $z);
     $v = mysqli_fetch_array($w);
@@ -99,10 +102,11 @@ else
     $c = "INSERT INTO patientusers (username, pass, patientsid) ".
          "VALUES ('".$un."', '".$pa."', ".$idp.")";
     $d = mysqli_query($dbc, $c);
+    $_SESSION['ptid'] = $idp;
     
     echo'
     <script>
-        window.location="registration.php";
+        window.location="textconsent.php";
     </script>
     ';
 }
