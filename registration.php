@@ -108,7 +108,7 @@ else
 <?php   
 echo'
 <html>
-<title>Block</title>
+<title>Registration</title>
 <head>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <style>  
@@ -728,14 +728,6 @@ echo'
     </table>
     </form>
     </div>';
-/*
-</div>
-    <div id="PtList" class="w3-container reg" style="display:none">
-    </div>
-    <div id="Stats" class="w3-container reg" style="display:none">
-    </div>';
- * 
- */
 ?>
 
    
