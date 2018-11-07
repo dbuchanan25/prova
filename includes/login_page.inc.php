@@ -41,11 +41,11 @@ else
 
     if ($_SESSION['w']>500)
     {
-        echo'<input type="text" name="username" size="20"  maxlength="20" autofocus style="height:30; font-size:24px;" />';
+        echo'<input type="text" name="username" size="20"  maxlength="20" autofocus style="height:30; font-size:20px;" />';
     }
     else
     {
-        echo'<input type="text" name="username" size="20"  maxlength="20" autofocus style="height:'.intval($_SESSION['w']*.06).';" />';
+        echo'<input type="text" name="username" size="20"  maxlength="20" autofocus style="height:'.intval($_SESSION['w']*.06).'; font-size:18px;" />';
     }
     echo'
         </td>
@@ -59,11 +59,11 @@ else
         <td width=25% align=center style=background-color:#EEEEEE;>';
     if ($_SESSION['w']>500)
     {
-        echo'<input type="password" name="pass" size="20" maxlength="25" style="height:30px; font-size:24px;" />';
+        echo'<input type="password" name="pass" size="20" maxlength="25" style="height:30px; font-size:20px;" />';
     }
     else
     {
-        echo'<input type="password" name="pass" size="20" maxlength="25" style="height:'.intval($_SESSION['w']*.06).';" />';
+        echo'<input type="password" name="pass" size="20" maxlength="25" style="height:'.intval($_SESSION['w']*.06).'; font-size:18px;" />';
     }
     echo'
         </td>
@@ -84,7 +84,7 @@ else
     }
     else
     {
-        echo'<input type="submit" name="submit" value="Submit" class="btn" style="height:'.intval($_SESSION['w']*.07).'px; width:'.intval($_SESSION['w']*.4).'px" />';
+        echo'<input type="submit" name="submit" value="Submit" class="btn" style="height:'.intval($_SESSION['w']*.08).'px; width:'.intval($_SESSION['w']*.4).'px" />';
     }
     echo'
     <input type="hidden" name="submitted" value="TRUE" />
