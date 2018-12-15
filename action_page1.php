@@ -39,7 +39,13 @@ else
 <?php
     require_once ($_SESSION['loginstring']);
     $yearnumber = date("Y");
+    
+    echo("Pre-Salt<br>");
 
+    $SALT = "TheKeyFromHell";
+    $hashname = md5( $SALT . md5( $_SESSION['lname'] . $SALT ) );
+
+    echo("Post-Salt");
 
     if (isset($_SESSION['addi1']) && !isset($_SESSION['addi2']))
     {
@@ -48,6 +54,7 @@ else
         {
             $addi1.=($a.' ');
         }
+
         $a = "INSERT INTO patients (fname, lname, phone, email, orlocID, anesthesiologistID, surgeonID, cptID, block1ID, ".
                 "drug1ID, vol1, addi1, block2ID, drug2ID, vol2, monthnumber, daynumber, hournumber, yearnumber, active) VALUES ('".
                 $_SESSION['fname']."', '".$_SESSION['lname']."', '".$_SESSION['phone']."', '".$_SESSION['email']."', ".$_SESSION['orlocID'].
@@ -56,6 +63,10 @@ else
                 ", ".$_SESSION['drug2ID'].", ".$_SESSION['volume2'].", ".$_SESSION['monthnumber'].", ".$_SESSION['daynumber'].
                 ", ".$_SESSION['hournumber'].", ".$yearnumber.", 1)";
         $b = mysqli_query($dbc, $a);
+        if (!mysqli_query($dbc,$a))
+        {
+          echo("Error description: " . mysqli_error($dbc));
+        }
     }
     else if (isset($_SESSION['addi1']) && isset($_SESSION['addi2']))
     {
@@ -96,8 +107,9 @@ else
     $w = mysqli_query($dbc, $z);
     $v = mysqli_fetch_array($w);
     $idp = $v[0];
-    $c = "INSERT INTO patientusers (username, pass, patientsid) ".
-         "VALUES ('".$un."', '".$pa."', ".$idp.")";
+
+    $c = "INSERT INTO patientusers (username, pass, patientsid, hashname) ".
+         "VALUES ('".$un."', '".$pa."', ".$idp.", '".$hashname."')";
     $d = mysqli_query($dbc, $c);
     
     echo'
