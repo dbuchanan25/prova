@@ -5,8 +5,10 @@ if (!isset($_SESSION))
 }
 
 include ('includes/header.php');
+require_once "includes/Mobile_Detect.php";
 
 $page_title = 'Login';
+$detect = new Mobile_Detect;
 
 echo'
 <link rel="stylesheet" href="styles/style.css" type="text/css">
@@ -23,8 +25,50 @@ if (!empty($errors))
 }
 else
 {
+    if ( $detect->isMobile() ) {
+        echo '
+        <div id="note" style="background-color:#6b9cff"> <a id="applink"> Download App </a> <a id="close"> [Exit] </a> </div>
+        <script>
+
+            close = document.getElementById("close");
+            close.addEventListener(\'click\', function() {
+              note = document.getElementById("note");
+              note.style.display = \'none\';
+            }, false);
+
+            downlink = document.getElementById("applink");
+            downlink.addEventListener(\'click\', function() {';
+                if( $detect->isiOS() ){
+                    echo'
+                    window.location.href=\'\';
+                    ';
+                }
+                 
+                if( $detect->isAndroidOS() ){
+                    echo'
+                    window.location.href=\'https://play.google.com/store/apps/details?id=com.ProvidenceMed.adhd.hello_world\';
+                    '; 
+                }
+                echo'
+                note = document.getElementById("note");
+                note.style.display = \'none\';
+            }, false);
+        </script>';
+    } else {
+        echo '
+        <div id="note" style="background-color:#6b9cff"> Try Our Mobile App! <a id="close"> [Exit] </a> </div>
+        <script>
+
+            close = document.getElementById("close");
+            close.addEventListener(\'click\', function() {
+              note = document.getElementById("note");
+              note.style.display = \'none\';
+            }, false);
+        </script>';
+    }
     echo'
     <body style="background-color:dddddd">
+    
     <br><br>
     <h1 class="h1log" style="text-align:center; color:#000000">Login Page</h1><br><br>
 

@@ -100,6 +100,39 @@ input.btn:hover
     transition-duration: 1.0s;
 }
 
+#note {
+    position: absolute;
+    z-index: 101;
+    top: 0;
+    left: 0;
+    right: 0;
+    background: #fde073;
+    text-align: center;
+    line-height: 2.5;
+    overflow: hidden; 
+    -webkit-animation-name: slidedown; /* Safari 4.0 - 8.0 */
+    -webkit-animation-duration: 1s; /* Safari 4.0 - 8.0 */
+    animation-name: slidedown;
+    animation-duration: 1s;
+    -webkit-box-shadow: 0 0 5px black;
+    -moz-box-shadow:    0 0 5px black;
+    box-shadow:         0 0 5px black;
+}
+
+@keyframes slidedown {
+  from {height: 0;}
+  to {height: 20;}
+/*  -webkit-transform: translateY(-50px);
+    -webkit-animation: slideDown 2.5s 1.0s 1 ease forwards;
+    -moz-transform:    translateY(-50px);
+    -moz-animation:    slideDown 2.5s 1.0s 1 ease forwards; */
+}
+
+/* Safari 4.0 - 8.0 */
+@-webkit-keyframes slidedown {
+  from {height: 0;}
+  to {height: 20;}
+}
 
 /* W3.CSS 4.10 February 2018 by Jan Egil and Borge Refsnes */
 html{box-sizing:border-box}*,*:before,*:after{box-sizing:inherit}

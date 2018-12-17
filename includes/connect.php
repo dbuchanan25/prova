@@ -8,13 +8,13 @@
 
 
 try {
-    DEFINE ('DB_USER', 'root');
-    DEFINE ('DB_PASSWORD', '');
+    DEFINE ('DB_USER', 'alex');
+    DEFINE ('DB_PASSWORD', '$eaml101!');
     DEFINE ('DB_HOST', 'localhost');
     DEFINE ('DB_NAME', 'ptinterface');
 
 
-    $dbc = @mysqli_connect (DB_HOST, DB_USER, DB_PASSWORD, DB_NAME);
+    $dbc = @mysqli_connect (DB_HOST, DB_USER, DB_PASSWORD, DB_NAME,null,'/var/www/html/mysql/mysql.sock');
     
     if (!$dbc) {
             throw new Exception("Could not connect to database");

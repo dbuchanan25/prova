@@ -14,6 +14,10 @@ function absolute_url ($page = 'login.php')
    return $url;
 }
 
+function isMobile() {
+    return preg_match("/(android|avantgo|blackberry|bolt|boost|cricket|docomo|fone|hiptop|mini|mobi|palm|phone|pie|tablet|up\.browser|up\.link|webos|wos)/i", $_SERVER["HTTP_USER_AGENT"]);
+}
+
 function check_login($dbc, $username='', $pass='')
 {
    $errors = array();
@@ -40,7 +44,7 @@ function check_login($dbc, $username='', $pass='')
         if ($ph != 0) 
         {
             $f = strtolower($e);
-            $q = "SELECT a.username, a.pass ".
+            $q = "SELECT a.username, a.pass, a.hashname, a.keychain, a.lastlogin ".
                  "FROM patientusers AS a ".
                  "INNER JOIN patients AS b ".
                  "ON a.patientsid = b.id ".
@@ -59,7 +63,7 @@ function check_login($dbc, $username='', $pass='')
         }
         else
         {
-            $q = "SELECT username, pass FROM users WHERE username='$e' AND pass=SHA1('$p')";
+            $q = "SELECT username, pass, hashname, keychain, lastlogin FROM users WHERE username='$e' AND pass=SHA1('$p')";
             $r = @mysqli_query ($dbc, $q);
             if (mysqli_num_rows($r) == 1)
             {

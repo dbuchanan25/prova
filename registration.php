@@ -12,6 +12,7 @@ $datetime2 = new DateTime("now", new DateTimeZone('US/Eastern'));
 
 if (!isset($_SESSION['username']))
 {
+  error_log("Username Not Set.");
    require_once ('includes/login_functions.inc.php');
    $url = absolute_url();
    header("Location: $url");

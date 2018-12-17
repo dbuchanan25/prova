@@ -51,5 +51,6 @@ echo "<h1 align=center>Logged Out!</h1>
 $_SESSION = array();
 session_destroy();
 setcookie ('PHPSESSID', '', time()-3600, '/', '', 0, 0);
+setcookie('authentication', ":", time()-3600);
 }
 ?>
