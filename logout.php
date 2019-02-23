@@ -41,7 +41,7 @@ echo "<h1 align=center>Logged Out!</h1>
 <p align=center> You will be redirected in 3 seconds. </p>
 <script>
         var timer = setTimeout(function() {
-            window.location='login.php'
+            window.location='https://www.provanesthesiology.com';
         }, 3000);
     </script>
 <br>
@@ -51,6 +51,5 @@ echo "<h1 align=center>Logged Out!</h1>
 $_SESSION = array();
 session_destroy();
 setcookie ('PHPSESSID', '', time()-3600, '/', '', 0, 0);
-setcookie('authentication', ":", time()-3600);
 }
 ?>

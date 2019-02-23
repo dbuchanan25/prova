@@ -38,24 +38,29 @@ else
 </script>
     <?php
     $_SESSION['ptblock1'] = false;  $_SESSION['ptblock2'] = false;
+    $_SESSION['ptblock3'] = false;  $_SESSION['ptblock4'] = false;
     
     $_SESSION['loginstring']='includes/connect.php';
     require_once ($_SESSION['loginstring']);
+
+    $phcomplete = "";
+    $pp = "SELECT phone FROM patients AS a INNER JOIN patientusers AS b on a.id=b.patientsid WHERE b.pass = '".$_SESSION["pass"]."'";
+    $rr = mysqli_query($dbc, $pp);
+    if ($rr)
+    {
+        $ss = mysqli_fetch_array($rr);
+        $phcomplete = $ss['phone'];
+        $_SESSION['ptphone']=$phcomplete;
+    }
+
+    //$ph = $_SESSION['ptphone'];
+    //$phcomplete = "(".substr($ph,0,3).") ".substr($ph,3,3)."-".substr($ph,6);
     
-    $ph = $_SESSION['ptphone'];
-    $phcomplete = "(".substr($ph,0,3).") ".substr($ph,3,3)."-".substr($ph,6);
-    
-    $q = "SELECT painscore1 ".
+    $q = "SELECT painscore1, painscore2, painscore3, painscore4 ".
          "FROM patients ".
          "WHERE phone LIKE '".$phcomplete."' ".
          "AND active = 1";
     $r = mysqli_query($dbc, $q);
-    
-    $t = "SELECT painscore2 ".
-         "FROM patients ".
-         "WHERE phone LIKE '".$phcomplete."' ".
-         "AND active = 1";
-    $u = mysqli_query($dbc, $t);
     
     if ($r !== false)
     {
@@ -64,8 +69,20 @@ else
         {
             $_SESSION['ptblock1'] = true;
         }
+        if ($s[1] > -1)
+        {
+            $_SESSION['ptblock2'] = true;
+        }
+        if ($s[2] > -1)
+        {
+            $_SESSION['ptblock3'] = true;
+        }
+        if ($s[3] > -1)
+        {
+            $_SESSION['ptblock4'] = true;
+        }
     }
-    
+    /*
     if ($u !== false)
     {
         $v = mysqli_fetch_array($u);
@@ -73,7 +90,9 @@ else
         {
             $_SESSION['ptblock2'] = true;
         }
-    }   
+    } 
+     * 
+     */  
 ?>
 
 
@@ -125,40 +144,34 @@ echo'
   <center><img src="includes/ProvidenceSmall.png" alt="PAA" height='.($_SESSION['w']*0.2369*.5*.7).'; width='.($_SESSION['w']*.5*.7).';" /></center>
 </div>';
 
-if ($_SESSION['ptblock1'] && !$_SESSION['ptblock2'])
-{
 echo'
 <div class="topnav" style="width:'.$_SESSION['w'].'">
-  <a href="eos.php">Evening of Surgery</a>
-  <a href="ptblock1.php">Postoperative Day #1</a>
+  <a href="eos.php">Evening of Surgery</a>';  
+if ($_SESSION['ptblock1'])
+{
+echo '
+  <a href="ptblock1.php">Postoperative Day #1</a>';
+}
+if ($_SESSION['ptblock2'])
+{
+echo '
+  <a href="ptblock2.php">Postoperative Day #2</a>';
+}
+if ($_SESSION['ptblock3'])
+{
+echo '
+  <a href="ptblock3.php">Postoperative Day #3</a>';
+}
+if ($_SESSION['ptblock4'])
+{
+echo '
+  <a href="ptblock4.php">Postoperative Day #4</a>';
+}
+echo'
   <a href="blockInformation.php">Block Information</a>
   <a href="faq.php">FAQs</a>
   <a href="logout.php">Logout</a>
 </div>';
-}
-else if ($_SESSION['ptblock1'] && $_SESSION['ptblock2'])
-{
-echo'
-<div class="topnav" style="width:'.$_SESSION['w'].'">
-  <a href="eos.php">Evening of Surgery</a>
-  <a href="ptblock1.php">Postoperative Day #1</a>
-  <a href="ptblock2.php">Postoperative Day #2</a>
-  <a href="blockInformation.php">Block Information</a>
-  <a href="faq.php">FAQs</a>
-  <a href="logout.php">Logout</a>
-</div>';
-}
-else if (!($_SESSION['ptblock1'] && !$_SESSION['ptblock2']))
-{
-echo'
-<div class="topnav" style="width:'.$_SESSION['w'].'">
-  <a href="eos.php">Evening of Surgery</a>
-  <a href="blockInformation.php">Block Information</a>
-  <a href="faq.php">FAQs</a>
-  <a href="logout.php">Logout</a>
-</div>';
-}
-
 ?>
     <h4>
     Continuous Perineural Nerve Block Catheters (CPNB, “pain pump”)

@@ -3,7 +3,7 @@
 //VERSION 01_03                                                                                 //
 //LAST REVISED 20190222                                                                         //
 //Page enters data into the database which has been confirmed by a physician user about a       //
-//patient's follow-up day 1.                                                                    //
+//patient's follow-up day 3.                                                                    //
 //////////////////////////////////////////////////////////////////////////////////////////////////
 session_start();
 
@@ -17,16 +17,16 @@ if (!isset($_SESSION['username']))
 else
 {
     require_once ($_SESSION['loginstring']);
-    $_SESSION['comments1'] = trim(str_replace("Comments:","",$_SESSION['comments1']));
+    $_SESSION['comments3'] = trim(str_replace("Comments:","",$_SESSION['comments3']));
     $q = "UPDATE patients ".
-         "SET painscore1 = ".$_SESSION['painscore1'].", ".
-            "sensoryblock1 = ".$_SESSION['sensoryblock1'].", ".
-            "motorblock1 = ".$_SESSION['motorblock1'].", ".
-            "nsaids1 = ".$_SESSION['nsaids1'].", ".
-            "acetaminophen1 = ".$_SESSION['acetaminophen1'].", ".
-            "narcotics1 = ".$_SESSION['narcotics1'].", ".
-            "drainage1 = ".$_SESSION['drainage1'].", ".
-            "comments1 = '".$_SESSION['comments1']."' ".
+         "SET painscore3 = ".$_SESSION['painscore3'].", ".
+            "sensoryblock3 = ".$_SESSION['sensoryblock3'].", ".
+            "motorblock3 = ".$_SESSION['motorblock3'].", ".
+            "nsaids3 = ".$_SESSION['nsaids3'].", ".
+            "acetaminophen3 = ".$_SESSION['acetaminophen3'].", ".
+            "narcotics3 = ".$_SESSION['narcotics3'].", ".
+            "drainage3 = ".$_SESSION['drainage3'].", ".
+            "comments3 = '".$_SESSION['comments3']."' ".
          "WHERE id = ".$_SESSION['currentptnum'];
     $r = mysqli_query($dbc, $q);
     echo'

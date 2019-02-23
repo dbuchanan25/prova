@@ -1,4 +1,10 @@
 <?php
+//////////////////////////////////////////////////////////////////////////////////////////////////                                                                             //
+//VERSION 01_03                                                                                 //
+//LAST REVISED 20190222                                                                         //
+//Page enters data into the database which has been confirmed by a physician user about a       //
+//patient's follow-up day 2.                                                                    //
+//////////////////////////////////////////////////////////////////////////////////////////////////
 session_start();
 
 if (!isset($_SESSION['username']))

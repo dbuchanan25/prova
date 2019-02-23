@@ -3,7 +3,7 @@
 //VERSION 01_03                                                                                 //
 //LAST REVISED 20190222                                                                         //
 //Page presents entered information which has been entered by a physician user about a patient's//
-//follow-up day 2 for confirmation before entering it into the database.                        //
+//follow-up day 3 for confirmation before entering it into the database.                        //
 //////////////////////////////////////////////////////////////////////////////////////////////////
 session_start();
 
@@ -16,31 +16,31 @@ if (!isset($_SESSION['username']))
 }
 else
 {
-    if (isset($_SESSION['pain2']))
-       unset($_SESSION['painscore2']);
-    if (isset($_SESSION['sensoryblock2']))
-       unset($_SESSION['sensoryblock2']);
-    if (isset($_SESSION['motorblock2']))
-       unset($_SESSION['motorblock2']);
-    if (isset($_SESSION['nsaids2']))
-       unset($_SESSION['nsaids2']);
-    if (isset($_SESSION['acetaminophen2']))
-       unset($_SESSION['acetaminophen2']);
-    if (isset($_SESSION['narcotics2']))
-       unset($_SESSION['narcotics2']);
-    if (isset($_SESSION['drainage2']))
-       unset($_SESSION['drainage2']);
-    if (isset($_SESSION['comments2']))
-       unset($_SESSION['comments2']);
+    if (isset($_SESSION['pain3']))
+       unset($_SESSION['painscore3']);
+    if (isset($_SESSION['sensoryblock3']))
+       unset($_SESSION['sensoryblock3']);
+    if (isset($_SESSION['motorblock3']))
+       unset($_SESSION['motorblock3']);
+    if (isset($_SESSION['nsaids3']))
+       unset($_SESSION['nsaids3']);
+    if (isset($_SESSION['acetaminophen3']))
+       unset($_SESSION['acetaminophen3']);
+    if (isset($_SESSION['narcotics3']))
+       unset($_SESSION['narcotics3']);
+    if (isset($_SESSION['drainage3']))
+       unset($_SESSION['drainage3']);
+    if (isset($_SESSION['comments3']))
+       unset($_SESSION['comments3']);
     
-    $_SESSION['painscore2'] = $_POST['pain2'];
-    $_SESSION['sensoryblock2'] = $_POST['sensoryblock2'];
-    $_SESSION['motorblock2'] = $_POST['motorblock2'];
-    $_SESSION['nsaids2'] = $_POST['nsaids2'];
-    $_SESSION['acetaminophen2'] = $_POST['acetaminophen2'];
-    $_SESSION['narcotics2'] = $_POST['narcotics2'];
-    $_SESSION['drainage2'] = $_POST['drainage2'];
-    $_SESSION['comments2'] = $_POST['comments2'];
+    $_SESSION['painscore3'] = $_POST['pain3'];
+    $_SESSION['sensoryblock3'] = $_POST['sensoryblock3'];
+    $_SESSION['motorblock3'] = $_POST['motorblock3'];
+    $_SESSION['nsaids3'] = $_POST['nsaids3'];
+    $_SESSION['acetaminophen3'] = $_POST['acetaminophen3'];
+    $_SESSION['narcotics3'] = $_POST['narcotics3'];
+    $_SESSION['drainage3'] = $_POST['drainage3'];
+    $_SESSION['comments3'] = $_POST['comments3'];
     
     $_SESSION['loginstring']='includes/connect.php';
     require_once ($_SESSION['loginstring']);
@@ -452,7 +452,6 @@ echo'
 
 
 
-
 echo'
     <h1 class="h1log" style="color:#000000">Followup: Day 2</h1>';
     if ($_SESSION['w'] > 925)
@@ -473,10 +472,10 @@ echo'
                 <b>Pain Score: </b>
             </td>
             <td style="width:50%; border:none; padding:10px">'.
-            $_SESSION['painscore2'].'
+            $spb['painscore2'].'
             </td>
         </tr>';
-    if ($_SESSION['sensoryblock2']  == 1){$z = 'Yes';} else {$z = 'No';}
+    if ($spb['sensoryblock2']  == 1){$z = 'Yes';} else {$z = 'No';}
     echo'
         <tr>
             <td style="width:50%; border:none; text-align:right; padding:10px">
@@ -486,7 +485,7 @@ echo'
             $z.'
             </td>
         </tr>';
-    if ($_SESSION['motorblock2']  == 1){$z = 'Yes';} else {$z = 'No';}
+    if ($spb['motorblock2']  == 1){$z = 'Yes';} else {$z = 'No';}
     echo'
         <tr>
             <td style="width:50%; border:none; text-align:right; padding:10px">
@@ -496,7 +495,7 @@ echo'
             $z.'
             </td>
         </tr>';
-    if ($_SESSION['nsaids2']  == 1){$z = 'Yes';} else {$z = 'No';}
+    if ($spb['nsaids2']  == 1){$z = 'Yes';} else {$z = 'No';}
     echo'
         <tr>
             <td style="width:50%; border:none; text-align:right; padding:10px">
@@ -506,7 +505,7 @@ echo'
             $z.'
             </td>
         </tr>';
-    if ($_SESSION['acetaminophen2']  == 1){$z = 'Yes';} else {$z = 'No';}
+    if ($spb['acetaminophen2']  == 1){$z = 'Yes';} else {$z = 'No';}
     echo'
         <tr>
             <td style="width:50%; border:none; text-align:right; padding:10px">
@@ -516,7 +515,7 @@ echo'
             $z.'
             </td>
         </tr>';
-    if ($_SESSION['narcotics2']  == 1){$z = 'Yes';} else {$z = 'No';}
+    if ($spb['narcotics2']  == 1){$z = 'Yes';} else {$z = 'No';}
     echo'
         <tr>
             <td style="width:50%; border:none; text-align:right; padding:10px">
@@ -526,7 +525,7 @@ echo'
             $z.'
             </td>
         </tr>';
-    if ($_SESSION['drainage2']  == 1){$z = 'Yes';} else {$z = 'No';}
+    if ($spb['drainage2']  == 1){$z = 'Yes';} else {$z = 'No';}
     echo'
         <tr>
             <td style="width:50%; border:none; text-align:right; padding:10px">
@@ -542,7 +541,116 @@ echo'
     <table style="border-style:solid; width:100%; margin-left:auto; margin-right:auto;">
         <tr>
             <td style="width:100%; border:none; text-align:left; padding:10px">'.
-                $_SESSION['comments2'].'
+                $spb['comments2'].'
+            </td>
+        </tr>
+    </table>
+    </td></tr>
+    </table><br>';
+    $_SESSION['revise2'] = 1;
+    echo'
+    <table style="width:60%">
+        <tr>
+            <td align="center">
+            <button class="btn" id="ce" onclick=window.location="specificpatient.php">REVISE DAY 2</button>
+            </td>
+        </tr>
+    </table>
+    ';
+    
+    
+    
+    
+echo'
+    <h1 class="h1log" style="color:#000000">Followup: Day 3</h1>';
+    if ($_SESSION['w'] > 925)
+    {
+        echo'
+        <table style="border-style:solid; width:60%; margin-left:auto; margin-right:auto;">';
+    }
+    else
+    {
+        echo'
+        <table style="border-style:solid; width:100%; margin-left:auto; margin-right:auto;">';
+    }
+    echo'
+    <tr><td>
+    <table style="border-style:solid; width:100%; margin-left:auto; margin-right:auto;">
+        <tr>
+            <td style="width:50%; border:none; text-align:right; padding:10px">
+                <b>Pain Score: </b>
+            </td>
+            <td style="width:50%; border:none; padding:10px">'.
+            $_SESSION['painscore3'].'
+            </td>
+        </tr>';
+    if ($_SESSION['sensoryblock3']  == 1){$z = 'Yes';} else {$z = 'No';}
+    echo'
+        <tr>
+            <td style="width:50%; border:none; text-align:right; padding:10px">
+                <b>Sensory Block: </b>
+            </td>
+            <td style="width:50%; border:none; padding:10px">'.
+            $z.'
+            </td>
+        </tr>';
+    if ($_SESSION['motorblock3']  == 1){$z = 'Yes';} else {$z = 'No';}
+    echo'
+        <tr>
+            <td style="width:50%; border:none; text-align:right; padding:10px">
+                <b>Motor Block: </b>
+            </td>
+            <td style="width:50%; border:none; padding:10px">'.
+            $z.'
+            </td>
+        </tr>';
+    if ($_SESSION['nsaids3']  == 1){$z = 'Yes';} else {$z = 'No';}
+    echo'
+        <tr>
+            <td style="width:50%; border:none; text-align:right; padding:10px">
+                <b>NSAID Use: </b>
+            </td>
+            <td style="width:50%; border:none; padding:10px">'.
+            $z.'
+            </td>
+        </tr>';
+    if ($_SESSION['acetaminophen3']  == 1){$z = 'Yes';} else {$z = 'No';}
+    echo'
+        <tr>
+            <td style="width:50%; border:none; text-align:right; padding:10px">
+                <b>Acetaminophen Use: </b>
+            </td>
+            <td style="width:50%; border:none; padding:10px">'.
+            $z.'
+            </td>
+        </tr>';
+    if ($_SESSION['narcotics3']  == 1){$z = 'Yes';} else {$z = 'No';}
+    echo'
+        <tr>
+            <td style="width:50%; border:none; text-align:right; padding:10px">
+                <b>Narcotic Use: </b>
+            </td>
+            <td style="width:50%; border:none; padding:10px">'.
+            $z.'
+            </td>
+        </tr>';
+    if ($_SESSION['drainage3']  == 1){$z = 'Yes';} else {$z = 'No';}
+    echo'
+        <tr>
+            <td style="width:50%; border:none; text-align:right; padding:10px">
+                <b>Drainage: </b>
+            </td>
+            <td style="width:50%; border:none; padding:10px">'.
+            $z.'
+            </td>
+        </tr>
+    </table>
+    </td></tr>
+    <tr><td>
+    <table style="border-style:solid; width:100%; margin-left:auto; margin-right:auto;">
+        <tr>
+            <td style="width:100%; border:none; text-align:left; padding:10px">'.
+                $_SESSION['comments3'].'
             </td>
         </tr>
     </table>
@@ -570,7 +678,7 @@ echo'
     }
     function ce()
     {
-        window.location="action_page_day2_2.php";
+        window.location="action_page_day3_2.php";
     }
     </script>
 <?php

@@ -3,6 +3,7 @@
 //PATIENT INTERFACE                                                                             //
 //VERSION 01_01                                                                                 //
 //LAST REVISED 20180811                                                                         //
+//Gives list of active patients to a physician user                                             //
 //////////////////////////////////////////////////////////////////////////////////////////////////
 
 session_start();
@@ -138,18 +139,6 @@ echo '</tbody>
         window.location.assign("resetWidth2.php");
     }                
 </script>
-
-                
-<?php
-/*
-</div>
-    <div id="PtList" class="w3-container reg" style="display:none">
-    </div>
-    <div id="Stats" class="w3-container reg" style="display:none">
-    </div>';
- * 
- */
-?>
 
    
 <script>

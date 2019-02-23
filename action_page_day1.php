@@ -1,5 +1,12 @@
 <?php
+//////////////////////////////////////////////////////////////////////////////////////////////////                                                                             //
+//VERSION 01_03                                                                                 //
+//LAST REVISED 20190222                                                                         //
+//Page presents entered information which has been entered by a physician user about a patient's//
+//follow-up day 1 for confirmation before entering it into the database.                        //
+//////////////////////////////////////////////////////////////////////////////////////////////////
 session_start();
+
 
 if (!isset($_SESSION['username']))
 {
@@ -43,7 +50,9 @@ else
     $sp = "SELECT a.id, a.fname, a.lname, a.phone, a.email, b.location, c.surgeonFirst, c.surgeonLast, d.first, d.last, ".
              "e.cptDescriptor, e.asaCode, f.block as block1, g.med as med1, a.vol1, h.block as block2, i.med as med2, a.vol2, a.monthnumber, a.daynumber, ".
              "a.painscore1, motorblock1, a.sensoryblock1, a.nsaids1, a.acetaminophen1, a.narcotics1, a.drainage1, a.comments1, ".
-             "a.painscore2, motorblock2, a.sensoryblock2, a.nsaids2, a.acetaminophen2, a.narcotics2, a.drainage2, a.comments2 ".
+             "a.painscore2, motorblock2, a.sensoryblock2, a.nsaids2, a.acetaminophen2, a.narcotics2, a.drainage2, a.comments2, ".
+             "a.painscore3, motorblock3, a.sensoryblock3, a.nsaids3, a.acetaminophen3, a.narcotics3, a.drainage3, a.comments3, ".
+             "a.painscore4, motorblock4, a.sensoryblock4, a.nsaids4, a.acetaminophen4, a.narcotics4, a.drainage4, a.comments4 ".
         "FROM patients AS a ".
         "INNER JOIN locations AS b ON a.orlocID=b.id ".
         "INNER JOIN surgeons AS c ON a.surgeonID=c.surgeonID ".
@@ -54,6 +63,8 @@ else
         "INNER JOIN blocks AS h ON a.block2ID=h.id ".
         "INNER JOIN drug AS i ON i.id=a.drug2ID ".  
         "WHERE a.id=".$_SESSION['currentptnum'];
+    
+    
             
 $spa = mysqli_query($dbc, $sp);
 $spb = mysqli_fetch_array($spa);
@@ -291,7 +302,7 @@ echo'
             </td>
 
             <td style="width:60%; padding:10px">'.
-                $_SESSION['volume2'].'
+                $spb['vol2'].'
             </td>
         </tr>
         <tr>

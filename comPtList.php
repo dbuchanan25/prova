@@ -3,6 +3,7 @@
 //PATIENT INTERFACE                                                                             //
 //VERSION 01_01                                                                                 //
 //LAST REVISED 20180811                                                                         //
+//Gives list of all patients in the database to a physician user                                //
 //////////////////////////////////////////////////////////////////////////////////////////////////
 
 session_start();

@@ -2,7 +2,7 @@
 //////////////////////////////////////////////////////////////////////////////////////////////////
 //VERSION 01_03                                                                                 //
 //LAST REVISED 20190222                                                                         //
-//Revision page reference for day 1.  Makes $_SESSION['revise1'] = true                         //
+//Revision page reference for day 4.  Makes $_SESSION['revise4'] = true                         //
 //It forwards information to the page "specificpatient.php"                                     //
 //////////////////////////////////////////////////////////////////////////////////////////////////
 session_start();
@@ -16,7 +16,7 @@ if (!isset($_SESSION['username']))
 }
 else
 {
-    $_SESSION['revise1'] = true;
+    $_SESSION['revise4'] = true;
     echo'
     <script>
     window.location = "specificpatient.php";

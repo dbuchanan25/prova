@@ -2,8 +2,8 @@
 //////////////////////////////////////////////////////////////////////////////////////////////////
 //VERSION 01_03                                                                                 //
 //LAST REVISED 20190222                                                                         //
-//Patient entry page for day 1.  This page will be texted to the patient on the appropriate day //
-//It forwards information to the page "action_page_pt_day1entry.php"                            //
+//Patient entry page for day 3.  This page will be texted to the patient on the appropriate day //
+//It forwards information to the page "action_page_pt_day3entry.php"                            //
 //////////////////////////////////////////////////////////////////////////////////////////////////
 session_start();
 $datetime = new DateTime("now", new DateTimeZone('US/Eastern'));
@@ -13,7 +13,7 @@ $datetime2 = new DateTime("now", new DateTimeZone('US/Eastern'));
 if (!isset($_SESSION['username']))
 {
     require_once ('includes/login_functions.inc.php');
-    $_SESSION['pt1entry'] = true;
+    $_SESSION['pt2entry'] = true;
     $url = absolute_url();
     header("Location: $url");
     exit();
@@ -27,33 +27,32 @@ else
     $phcomplete = $_SESSION['ptphone'];
     $_SESSION['cath'] = false;
     
-    $q = "SELECT painscore1, id, method1 ".
+    $q = "SELECT painscore3, id, method1 ".
          "FROM patients ".
          "WHERE phone LIKE '".$phcomplete."' ".
          "AND active = 1";
-
     $r = mysqli_query($dbc, $q);
     if ($r !== false)
     {
         $s = mysqli_fetch_array($r);
         $_SESSION['id'] = $s[1];
+        
         if ($s[2] == 'catheter')
         {
             $_SESSION['cath'] = true;
         }
+        
         if ($s[0] == -1)
         {
             $goahead = true;
         }
-
-        if (isset($_SESSION['again1']) && $_SESSION['again1'])
+        if (isset($_SESSION['again3']) && $_SESSION['again3'])
         {
             $goahead = true;
         }
-        
         if (!$goahead)
         {
-            header("Location: ptblock1.php");
+            header("Location: ptblock3.php");
         }
     }      
 ?>
@@ -94,7 +93,7 @@ function doOnResize()
 <?php
 echo'
 <html>
-<title>Day 1 Entry</title>
+<title>FAQs</title>
 <body>
 
 <div class="row2" style="background-color:#7db4dc; width:'.$_SESSION['w'].'">
@@ -104,13 +103,15 @@ echo'
 
 <div class="topnav">
   <a href="eos.php">Evening of Surgery</a>
-  <a href="#">Postoperative Day #1</a>
+  <a href="ptblock1.php">Postoperative Day #1</a>
+  <a href="ptblock2.php">Postoperative Day #2</a>
+  <a href="pt3entry.php">Postoperative Day #3</a> 
   <a href="blockInformation.php">Block Information</a>
   <a href="faqs.php">FAQs</a>
   <a href="logout.php">Logout</a>
 </div>
     <br><br>
-    <center><h1>POSTOPERATIVE DAY #1</h1></center>
+    <center><h1>POSTOPERATIVE DAY #3</h1></center>
     <br><br>
     <center><h1>What is your current pain level?</h1></center>
     <br>
@@ -138,7 +139,7 @@ echo'
 
                 
 
-    <form action="action_page_pt_day1entry.php" method="post">
+    <form action="action_page_pt_day3entry.php" method="post">
     <table style="border-style:solid; width:70%; margin-right:auto; margin-left:auto;">
             <tr>
 
@@ -480,7 +481,8 @@ echo'
     <br>
     <svg height="10" width="'.$_SESSION['w'].'">
     <line x1="'.$_SESSION['w']*.15.'" y1="0" x2="'.$_SESSION['w']*.85.'" y2="0" style="stroke:#7db4dc;stroke-width:10" />
-    </svg>
+    </svg>';
+?>
    
     <script type="text/javascript">
     function clickYesT() {
@@ -499,7 +501,8 @@ echo'
     document.getElementById("tylenoln").onchange = clickNoT;
     </script>
     
-    
+ <?php
+ echo'
     <br><br>
     <center><h1>Have you been taking Non-steroidal Anti-inflammatory Drugs (NSAIDS)?</h1></center><br>
     <center><h2>(such as Motrin, Advil, ibuprofen, diclofenac, naproxen, Naprosyn, etodolac, ketorolac, Toradol)</h2></center>
@@ -683,23 +686,6 @@ echo'
 
     document.getElementById("narcsy").onchange = clickYesNa;
     document.getElementById("narcsn").onchange = clickNoNa;
-    </script>
-    
-    <script type="text/javascript">
-    function clickYesDr() {
-        if (document.getElementById("drainn").checked) {
-                        document.getElementById("drainn").checked = false;
-        }
-    }
-
-    function clickNoDr() {
-        if (document.getElementById("drainy").checked) {
-                        document.getElementById("drainy").checked = false;
-        }
-    }
-
-    document.getElementById("drainy").onchange = clickYesDr;
-    document.getElementById("drainn").onchange = clickNoDr;
     </script>
     
 

@@ -1,4 +1,10 @@
 <?php
+//////////////////////////////////////////////////////////////////////////////////////////////////                                                                             //
+//VERSION 01_03                                                                                 //
+//LAST REVISED 20190222                                                                         //
+//Page confirms appropriate entry of patient information prior to entry into the database.      //
+//It forwards to page "action_page1.php"                                                        //
+//////////////////////////////////////////////////////////////////////////////////////////////////
 session_start();
 
 
@@ -116,6 +122,8 @@ else
                         if (isset($_POST['addi2']))
                             $_SESSION['addi2'] = $_POST['addi2'];
                         
+                        $_SESSION['method1'] = $_POST['method1'];
+                        $_SESSION['method2'] = $_POST['method2'];
                         $_SESSION['monthnumber'] = $_POST['month'];
                         $_SESSION['daynumber'] = $_POST['day'];
                         $_SESSION['hournumber'] = $_POST['hour'];
@@ -309,13 +317,30 @@ else
                             {
                                 echo '<td style="width:60%; padding:10px">None</td>';
                             }
+                        
+                        if ($_SESSION['method1'] == 'singleshot')
+                        {
+                            $m1 = 'Single Shot';
+                        }
+                        else
+                        {
+                            $m1 = 'Catheter';
+                        }
                         echo'
-                                </tr>            
+                                </tr>
+                                <tr>
+                                    <td style="width:40%; border:none; text-align:right; padding:10px; font-weight: bold;">
+                                    Method: 
+                                    </td>
+                                    <td style="width:60%; padding:10px">'.
+                                        $m1.'
+                                    </td>
+                                </tr>
                             </table>
                             <br>
                             <br>';
 
-                        if (isset($_SESSION['block2']))
+                        if (isset($_SESSION['block2']) && $_SESSION['block2'] != 'None')
                         {            
                         echo'
                         <center>
@@ -394,7 +419,23 @@ else
                                 {
                                     echo '<td style="width:60%; padding:10px">None</td>';
                                 }
+                        if ($_SESSION['method2'] == 'singleshot')
+                        {
+                            $m2 = 'Single Shot';
+                        }
+                        else
+                        {
+                            $m2 = 'Catheter';
+                        }
                         echo'
+                                </tr>
+                                <tr>
+                                    <td style="width:40%; border:none; text-align:right; padding:10px; font-weight: bold;">
+                                    Method: 
+                                    </td>
+                                    <td style="width:60%; padding:10px">'.
+                                        $m2.'
+                                    </td>
                                 </tr>            
                             </table>';    
                         }

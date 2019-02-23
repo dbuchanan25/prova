@@ -2,7 +2,7 @@
 //////////////////////////////////////////////////////////////////////////////////////////////////
 //VERSION 01_03                                                                                 //
 //LAST REVISED 20190222                                                                         //
-//Enters into the database results from patient entry of pain score, etc. for day 1             //
+//Enters into the database results from patient entry of pain score, etc. for day 3             //
 //It forwards information to the page "blockinformation.php"                                    //
 //////////////////////////////////////////////////////////////////////////////////////////////////
 session_start();
@@ -17,28 +17,27 @@ if (!isset($_SESSION['username']))
 else
 {
     require_once ($_SESSION['loginstring']);
-    
     if ($_SESSION['cath'])
     {
         $q = "UPDATE patients ".
-         "SET painscore1 = ".$_POST['pscore'].", ".
-            "sensoryblock1 = ".$_POST['sensory'].", ".
-            "motorblock1 = ".$_POST['motor'].", ".
-            "nsaids1 = ".$_POST['nsaids'].", ".
-            "acetaminophen1 = ".$_POST['tylenol'].", ".
-            "narcotics1 = ".$_POST['narcs'].", ".
-            "drainage1 = ".$_POST['dra']." ".
+         "SET painscore3 = ".$_POST['pscore'].", ".
+            "sensoryblock3 = ".$_POST['sensory'].", ".
+            "motorblock3 = ".$_POST['motor'].", ".
+            "nsaids3 = ".$_POST['nsaids'].", ".
+            "acetaminophen3 = ".$_POST['tylenol'].", ".
+            "narcotics3 = ".$_POST['narcs'].", ".
+            "drainage3 = ".$_POST['dra']." ".
          "WHERE id = ".$_SESSION['id'];
     }
     else
     {
         $q = "UPDATE patients ".
-             "SET painscore1 = ".$_POST['pscore'].", ".
-                "sensoryblock1 = ".$_POST['sensory'].", ".
-                "motorblock1 = ".$_POST['motor'].", ".
-                "nsaids1 = ".$_POST['nsaids'].", ".
-                "acetaminophen1 = ".$_POST['tylenol'].", ".
-                "narcotics1 = ".$_POST['narcs']." ".
+             "SET painscore3 = ".$_POST['pscore'].", ".
+                "sensoryblock3 = ".$_POST['sensory'].", ".
+                "motorblock3 = ".$_POST['motor'].", ".
+                "nsaids3 = ".$_POST['nsaids'].", ".
+                "acetaminophen3 = ".$_POST['tylenol'].", ".
+                "narcotics3 = ".$_POST['narcs']." ".
              "WHERE id = ".$_SESSION['id'];
     }
     $r = mysqli_query($dbc, $q);
@@ -54,7 +53,6 @@ else
     }
     unset($_SESSION['id']);
     unset($_SESSION['cath']);
-    
     echo'
     <script>
         window.location="blockinformation.php";

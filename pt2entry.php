@@ -1,4 +1,10 @@
 <?php
+//////////////////////////////////////////////////////////////////////////////////////////////////
+//VERSION 01_03                                                                                 //
+//LAST REVISED 20190222                                                                         //
+//Patient entry page for day 2.  This page will be texted to the patient on the appropriate day //
+//It forwards information to the page "action_page_pt_day2entry.php"                            //
+//////////////////////////////////////////////////////////////////////////////////////////////////
 session_start();
 $datetime = new DateTime("now", new DateTimeZone('US/Eastern'));
 $datetime2 = new DateTime("now", new DateTimeZone('US/Eastern'));
@@ -18,10 +24,11 @@ else
     $_SESSION['loginstring']='includes/connect.php';
     require_once ($_SESSION['loginstring']);
     
-    $ph = $_SESSION['ptphone'];
-    $phcomplete = "(".substr($ph,0,3).") ".substr($ph,3,3)."-".substr($ph,6);
+    $phcomplete = $_SESSION['ptphone'];
+    //$phcomplete = "(".substr($ph,0,3).") ".substr($ph,3,3)."-".substr($ph,6);
+    $_SESSION['cath'] = false;
     
-    $q = "SELECT painscore2, id ".
+    $q = "SELECT painscore2, id, method1 ".
          "FROM patients ".
          "WHERE phone LIKE '".$phcomplete."' ".
          "AND active = 1";
@@ -30,6 +37,12 @@ else
     {
         $s = mysqli_fetch_array($r);
         $_SESSION['id'] = $s[1];
+        
+        if ($s[2] == 'catheter')
+        {
+            $_SESSION['cath'] = true;
+        }
+
         if ($s[0] == -1)
         {
             $goahead = true;
@@ -132,6 +145,14 @@ echo'
 
                 <td style="border:none; width:10%;">                
                 <label class="control control-checkbox">
+                 0
+                <input type="radio" id="0" name="pscore" value="1"/>
+                <div class="control_indicator"></div>
+                </label>
+                </td>
+                
+                <td style="border:none; width:10%;">                
+                <label class="control control-checkbox">
                  1
                 <input type="radio" id="1" name="pscore" value="1"/>
                 <div class="control_indicator"></div>
@@ -211,6 +232,9 @@ echo'
                 </td>                
             </tr>
             <tr>
+                <td>
+                 <img src="1.png" width="50">
+                </td>
                 <td>
                  <img src="1.png" width="50">
                 </td>
@@ -594,6 +618,57 @@ echo'
         '</tr> '.
     '</table> '.
     '<br>';
+    
+    if ($s[2] == 'catheter')
+    {
+    echo
+    '<br> '.
+    '<svg height="10" width="'.$_SESSION['w'].'"> '.
+    '<line x1="'.$_SESSION['w']*.15.'" y1="0" x2="'.$_SESSION['w']*.85.'" y2="0" style="stroke:#7db4dc;stroke-width:10" /> '.
+    '</svg> '.
+    '<br><br> '.
+    '<h1><center>Have you had any drainage from the catheter site?</center></h1><br> '.
+    '<br> '.
+    '<table style=width:100%; margin-right:auto; margin-left:auto"> '.
+        '<tr> '.
+            '<td style="border:none; width:25%"> '.
+            '</td> '.                
+            '<td style="border:none; width:25%;"> '.
+
+            '<table style="border-style:solid; margin-right:auto; margin-left:auto;"> '.
+                '<tr> '.
+                    '<td> '.
+                    '<label class="control control-checkbox"> '.
+                    'Yes '.
+                    '<input type="checkbox" id="drainy" name="dra" value="1"/> '.
+                    '<div class="control_indicator"></div> '.
+                    '</label> '.
+                    '</td> '.
+                '</tr> '.
+            '</table> '.
+               
+            '</td> '.
+            '<td style="border:none; width:25%;"> '.
+
+            '<table style="border-style:solid; margin-right:auto; margin-left:auto;"> '.
+                '<tr> '.
+                    '<td> '.
+                    '<label class="control control-checkbox"> '.
+                    'No '.
+                    '<input type="checkbox" id="drainn" name="dra" value="0"/> '.
+                    '<div class="control_indicator"></div> '.
+                    '</label> '.
+                    '</td> '.
+                '</tr> '.
+            '</table> '.
+
+            '</td> '.
+            '<td style="border:none; width:25%"> '.
+            '</td> '.     
+        '</tr> '.
+    '</table> '.
+    '<br>';
+    }
 ?>
    
    <script type="text/javascript">

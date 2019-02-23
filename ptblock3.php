@@ -58,8 +58,14 @@ else
 <link rel="stylesheet" href="styles/style2.css" type="text/css">
 </head>
 <body>
-    
+
 <script type="text/javascript">    
+function doOnOrientationChange()
+{
+    window.location("resetwidth.php");
+}
+window.addEventListener('orientationchange', doOnOrientationChange);
+
 var resizeTimer; 
 var cachedWidth = window.innerWidth;
 
@@ -85,7 +91,7 @@ function doOnResize()
 <?php
 echo'
 <html>
-<title>Block Day 1</title>
+<title>Block Day 3</title>
 <body>
 
 <div class="row2" style="background-color:#7db4dc; width:'.$_SESSION['w'].'">
@@ -127,20 +133,19 @@ echo'
           "AND active = 1";
     $r1 = mysqli_query($dbc, $q1);
     $s1 = mysqli_fetch_array($r1);
-    
 
 echo
-    '<center><h1>POSTOPERATIVE DAY #1</h1></center>'.
+    '<center><h1>POSTOPERATIVE DAY #3</h1></center>'.
     '<br>'.
     '<svg height="10" width="'.$_SESSION['w'].'">'.
     '<line x1="'.$_SESSION['w']*.15.'" y1="0" x2="'.$_SESSION['w']*.85.'" y2="0" style="stroke:#7db4dc;stroke-width:10" />'.
     '</svg>'.
     '<center><h2>Pain Score</h2></center>'.
-    '<center><h1>'.$s1['painscore1'].'</h1></center>'.
+    '<center><h1>'.$s1['painscore3'].'</h1></center>'.
     '<center><h2>(from 1-10, with 1 being no pain and 10 being the worst pain imaginable)</h2></center><br>';
 
 
-    if ($s1['motorblock1']==0)
+    if ($s1['motorblock3']==0)
     {
         $mb = "No";
     }
@@ -150,14 +155,15 @@ echo
     }
 
     echo
-    '<svg height="10" width="'.$_SESSION['w'].'">'.   
+    '<svg height="10" width="'.$_SESSION['w'].'">'.
     '<line x1="'.$_SESSION['w']*.15.'" y1="0" x2="'.$_SESSION['w']*.85.'" y2="0" style="stroke:#7db4dc;stroke-width:10" />'.
+    '</svg>'.
     '<br><br>'.
     '<h2><center>Did you have weakness in the area of the nerve block?</center></h2>'.
     '<center><h1>'.$mb.'</h1></center>'.
     '<br>';
             
-    if ($s1['sensoryblock1']==0)
+    if ($s1['sensoryblock3']==0)
     {
         $sb = "No";
     }
@@ -178,7 +184,7 @@ echo
     
     
     
-    if ($s1['acetaminophen1']==0)
+    if ($s1['acetaminophen3']==0)
     {
         $ace = "No";
     }
@@ -192,12 +198,12 @@ echo
     '<line x1="'.$_SESSION['w']*.15.'" y1="0" x2="'.$_SESSION['w']*.85.'" y2="0" style="stroke:#7db4dc;stroke-width:10" />'.
     '</svg>'.
     '<br><br>'.
-    '<h2><center>Did you take acetaminophen the first postoperative day?</center></h2>'.
+    '<h2><center>Did you take acetaminophen the third postoperative day?</center></h2>'.
     '<center><h1>'.$ace.'</h1></center>'.
     '<br>';
 
 
-    if ($s1['nsaids1']==0)
+    if ($s1['nsaids3']==0)
     {
         $ns = "No";
     }
@@ -211,12 +217,12 @@ echo
     '<line x1="'.$_SESSION['w']*.15.'" y1="0" x2="'.$_SESSION['w']*.85.'" y2="0" style="stroke:#7db4dc;stroke-width:10" />'.
     '</svg>'.
     '<br><br>'.
-    '<h2><center>Did you take NSAIDS the first postoperative day?</center></h2>'.
+    '<h2><center>Did you take NSAIDS the third postoperative day?</center></h2>'.
     '<h2><center>(such as Motrin, Advil, ibuprofen, diclofenac, naproxen, Naprosyn, etodolac, ketorolac, Toradol)</center></h2>'.
     '<center><h1>'.$ns.'</h1></center>'.
     '<br>';
 
-    if ($s1['narcotics1']==0)
+    if ($s1['narcotics3']==0)
     {
         $na = "No";
     }
@@ -230,14 +236,14 @@ echo
     '<line x1="'.$_SESSION['w']*.15.'" y1="0" x2="'.$_SESSION['w']*.85.'" y2="0" style="stroke:#7db4dc;stroke-width:10" />'.
     '</svg>'.
     '<br><br>'.
-    '<h2><center>Did you take any narcotics the first postoperative day?</center></h2>'.
+    '<h2><center>Did you take any narcotics the third postoperative day?</center></h2>'.
     '<h2><center>(such as oxycodone, hydrocodone, codeine, Lortab, Lorcet, Oxycontin, Vicodin, Percocet)</center></h2>'.
     '<center><h1>'.$na.'</h1></center>'.
     '<br>';
-
+    
     if ($s1['method1'] == 'catheter')
     {
-        if ($s1['drainage1']==0)
+        if ($s1['drainage3']==0)
         {
             $drn = "No";
         }
@@ -251,7 +257,7 @@ echo
         '<line x1="'.$_SESSION['w']*.15.'" y1="0" x2="'.$_SESSION['w']*.85.'" y2="0" style="stroke:#7db4dc;stroke-width:10" />'.
         '</svg>'.
         '<br><br>'.
-        '<h2><center>Did you have any drainage from the catheter site on the first postoperative day?</center></h2>'.
+        '<h2><center>Did you have any drainage from the catheter site on the third postoperative day?</center></h2>'.
         '<center><h1>'.$drn.'</h1></center>'.
         '<br>';
     }

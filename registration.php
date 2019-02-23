@@ -1,11 +1,19 @@
 <?php
 //////////////////////////////////////////////////////////////////////////////////////////////////
 //PATIENT INTERFACE                                                                             //
-//VERSION 01_01                                                                                 //
-//LAST REVISED 20180811                                                                         //
+//VERSION 01_03                                                                                 //
+//LAST REVISED 20190222                                                                         //
+//ALLOWS REGISTRATION OF A PATIENT BY A PHYSICIAN OR OTHER HEALTH CARE GIVER                    //
+//It forwards information to the page "action_page0.php"                                        //
 //////////////////////////////////////////////////////////////////////////////////////////////////
 
 session_start();
+
+echo '<link rel="manifest" href="/manifest.json">';
+echo '<meta name="apple-mobile-web-app-capable" content="yes">';
+echo '<meta name="apple-mobile-web-app-status-bar-style" content="default">';
+echo '<link rel="apple-touch-icon" href="fi192.png">';
+
 $datetime = new DateTime("now", new DateTimeZone('US/Eastern'));
 $datetime2 = new DateTime("now", new DateTimeZone('US/Eastern'));
 
@@ -22,6 +30,35 @@ else
 {
    $_SESSION['loginstring']='includes/connect.php';
    require_once ($_SESSION['loginstring']);
+   
+   if (isset($_GET["w"]) && !isset($_SESSION['w']))
+   {
+      $_SESSION['w'] = $_GET["w"];
+   }  
+   else if (!isset($_SESSION['w']))
+   {
+       echo '<body>';
+       echo' <table id="dale" style="width:100%;"></table>';
+       echo '</body>';
+       ?>
+        <script type="text/javascript">
+        var elmnt = document.getElementById("dale");
+
+        var txt1 = elmnt.clientWidth; 
+        var txt2 = window.innerWidth;
+        var txt3 = window.screen.width;
+
+        var txt = Math.min(txt1, txt2, txt3);
+
+
+
+        var loc = window.location.href;
+        
+        window.location = loc + "?w=" + txt + "&h=" + window.screen.height;       
+        </script>
+        <?php 
+        die();
+   }
    
    $winwidth = $_SESSION['w'];
    
@@ -392,8 +429,33 @@ echo'
                     <input type="checkbox" id="decadron" name="addi1[]" value="decadron"/>       
                     </td> 
                 </tr>
-      </table>
-    <br>
+            </table>';
+            
+    if ($_SESSION['w'] > 925)
+    {
+        echo'
+            <table style="border-style:solid; width:60%; margin-left:auto; margin-right:auto;">';
+    }
+    else
+    {
+        echo'
+            <table style="border-style:solid; width:100%; margin-left:auto; margin-right:auto;">';
+    } 
+    
+    echo'
+                <tr>
+                    <td style="text-align:center; font-weight: bold;">
+                    Method:
+                    </td>
+                    <td style="text-align:center">
+                    <input type="radio" name="method1" value="singleshot" checked>Single Shot
+                    </td>
+                    <td style="text-align:center">
+                    <input type="radio" name="method1" value="catheter">Catheter<br>
+                    </td>
+                </tr>
+            </table>
+    
      
     <center>
     <h1 class="h1log" style="text-align:left color:#000000">Secondary Block</h1>';
@@ -496,7 +558,32 @@ echo'
                 <input type="checkbox" id="decadron2" name="addi2[]" value="decadron"/>       
                 </td> 
             </tr>
-        </table>
+        </table>';
+            
+    if ($_SESSION['w'] > 925)
+    {
+        echo'
+            <table style="border-style:solid; width:60%; margin-left:auto; margin-right:auto;">';
+    }
+    else
+    {
+        echo'
+            <table style="border-style:solid; width:100%; margin-left:auto; margin-right:auto;">';
+    } 
+    
+    echo'
+                <tr>
+                    <td style="text-align:center; font-weight: bold;">
+                    Method:
+                    </td>
+                    <td style="text-align:center">
+                    <input type="radio" name="method2" value="singleshot" checked>Single Shot
+                    </td>
+                    <td style="text-align:center">
+                    <input type="radio" name="method2" value="catheter">Catheter<br>
+                    </td>
+                </tr>
+            </table>
         <br>
 
         <h1>Enter Date and Hour Block(s) was(were) placed</h1>

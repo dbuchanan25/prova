@@ -1,4 +1,10 @@
 <?php
+//////////////////////////////////////////////////////////////////////////////////////////////////                                                                             //
+//VERSION 01_03                                                                                 //
+//LAST REVISED 20190222                                                                         //
+//Page enters data into the database which has been confirmed by a physician user about a       //
+//patient's registration and block information.                                                 //
+//////////////////////////////////////////////////////////////////////////////////////////////////
 session_start();
 
 
@@ -56,13 +62,12 @@ else
         }
 
         $a = "INSERT INTO patients (fname, lname, phone, email, orlocID, anesthesiologistID, surgeonID, cptID, block1ID, ".
-                "drug1ID, vol1, addi1, block2ID, drug2ID, vol2, monthnumber, daynumber, hournumber, yearnumber, active) VALUES ('".
+                "drug1ID, vol1, addi1, method1, block2ID, drug2ID, vol2, method2, monthnumber, daynumber, hournumber, yearnumber, active) VALUES ('".
                 $_SESSION['fname']."', '".$_SESSION['lname']."', '".$_SESSION['phone']."', '".$_SESSION['email']."', ".$_SESSION['orlocID'].
                 ", ".$_SESSION['anesthesiologistID'].", ".$_SESSION['surgeonID'].", ".$_SESSION['cptID'].", ".$_SESSION['block1ID'].
-                ", ".$_SESSION['drug1ID'].", ".$_SESSION['volume1'].", '".$addi1."', ".$_SESSION['block2ID'].
-                ", ".$_SESSION['drug2ID'].", ".$_SESSION['volume2'].", ".$_SESSION['monthnumber'].", ".$_SESSION['daynumber'].
+                ", ".$_SESSION['drug1ID'].", ".$_SESSION['volume1'].", '".$addi1."', '".$_SESSION['method1']."', ".$_SESSION['block2ID'].
+                ", ".$_SESSION['drug2ID'].", ".$_SESSION['volume2'].", '".$_SESSION['method2']."', ".$_SESSION['monthnumber'].", ".$_SESSION['daynumber'].
                 ", ".$_SESSION['hournumber'].", ".$yearnumber.", 1)";
-        $b = mysqli_query($dbc, $a);
         if (!mysqli_query($dbc,$a))
         {
           echo("Error description: " . mysqli_error($dbc));
@@ -81,24 +86,30 @@ else
             $addi2.=($b.' ');
         }
         $a = "INSERT INTO patients (fname, lname, phone, email, orlocID, anesthesiologistID, surgeonID, cptID, block1ID, ".
-                "drug1ID, vol1, block2ID, drug2ID, vol2, addi1, addi2, monthnumber, daynumber, hournumber, yearnumber, active) VALUES ('".
+                "drug1ID, vol1, block2ID, drug2ID, vol2, addi1, addi2, method1, method2, monthnumber, daynumber, hournumber, yearnumber, active) VALUES ('".
                 $_SESSION['fname']."', '".$_SESSION['lname']."', '".$_SESSION['phone']."', '".$_SESSION['email']."', ".$_SESSION['orlocID'].
                 ", ".$_SESSION['anesthesiologistID'].", ".$_SESSION['surgeonID'].", ".$_SESSION['cptID'].", ".$_SESSION['block1ID'].
                 ", ".$_SESSION['drug1ID'].", ".$_SESSION['volume1'].", ".$_SESSION['block2ID'].", ".$_SESSION['drug2ID'].
-                ", ".$_SESSION['volume2'].", '".$addi1."', '".$addi2."', ".$_SESSION['monthnumber'].
+                ", ".$_SESSION['volume2'].", '".$addi1."', '".$addi2."', '".$_SESSION['method1']."', '".$_SESSION['method2']."', ".$_SESSION['monthnumber'].
                 ", ".$_SESSION['daynumber'].", ".$_SESSION['hournumber'].", ".$yearnumber.", 1)";
-        $b = mysqli_query($dbc, $a);
+        if (!mysqli_query($dbc,$a))
+        {
+          echo("Error description: " . mysqli_error($dbc));
+        }
     }
     else
     {
         $a = "INSERT INTO patients (fname, lname, phone, email, orlocID, anesthesiologistID, surgeonID, cptID, block1ID, ".
-                "drug1ID, vol1, block2ID, drug2ID, vol2, monthnumber, daynumber, hournumber, yearnumber, active) VALUES ('".
+                "drug1ID, vol1, method1, block2ID, drug2ID, vol2, method2, monthnumber, daynumber, hournumber, yearnumber, active) VALUES ('".
                 $_SESSION['fname']."', '".$_SESSION['lname']."', '".$_SESSION['phone']."', '".$_SESSION['email']."', ".$_SESSION['orlocID'].
                 ", ".$_SESSION['anesthesiologistID'].", ".$_SESSION['surgeonID'].", ".$_SESSION['cptID'].", ".$_SESSION['block1ID'].
-                ", ".$_SESSION['drug1ID'].", ".$_SESSION['volume1'].", ".$_SESSION['block2ID'].", ".$_SESSION['drug2ID'].
-                ", ".$_SESSION['volume2'].", ".$_SESSION['monthnumber'].", ".$_SESSION['daynumber'].", ".$_SESSION['hournumber'].
+                ", ".$_SESSION['drug1ID'].", ".$_SESSION['volume1'].", '".$_SESSION['method2']."', ".$_SESSION['block2ID'].", ".$_SESSION['drug2ID'].
+                ", ".$_SESSION['volume2'].", '".$_SESSION[method2]."', ".$_SESSION['monthnumber'].", ".$_SESSION['daynumber'].", ".$_SESSION['hournumber'].
                 ", ".$yearnumber.", 1)";
-        $b = mysqli_query($dbc, $a);
+        if (!mysqli_query($dbc,$a))
+        {
+          echo("Error description: " . mysqli_error($dbc));
+        }
     }
     
     $un = strtolower($_SESSION['fname'][0]).strtolower($_SESSION['lname']);

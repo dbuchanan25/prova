@@ -5,7 +5,7 @@
 //LAST REVISED 20180811                                                                         //
 //////////////////////////////////////////////////////////////////////////////////////////////////
  echo '
-            <script language="JavaScript"> 
-            window.location = "login.php?w=" + screen.width;
+            <script language="JavaScript"> 	
+            	window.location = "login.php?w=" + screen.width;
             </script>';   
  ?>
