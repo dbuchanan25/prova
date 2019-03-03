@@ -18,11 +18,6 @@ if (!isset($_SESSION['username']))
 }
 else
 {
-    /*
-    var_dump($_SESSION);
-    die();
-     * 
-     */
    if (!isset($_SESSION['revise1']))
        $_SESSION['revise1'] = false;
    if (!isset($_SESSION['revise2']))
@@ -43,41 +38,59 @@ else
    else
        godso();
 ?>
-
 <script type="text/javascript">
     function godso() 
     {
         window.location="patientinfo.php";
     }
 
-    var resizeTimer; 
-    var cachedWidth = window.innerWidth;
-    
-    window.addEventListener("resize", doOnResize); 
-       
-    function doOnResize()
+    function doOnOrientationChange()
     {
-        clearTimeout(resizeTimer);
-        var new_width = window.innerWidth;
-        if(new_width !== cachedWidth)
-        {
-            resizeTimer = setTimeout(function() 
-            {
-                var new_width = window.innerWidth;
-                var new_height = window.innerHeight;
-                window.location = "resetWidth3.php?w=" + new_width + "&h=" + new_height;            
-            }, 500);
-        }
-    } 
+        window.location("resetwidth.php");
+    }
+    window.addEventListener('orientationchange', doOnOrientationChange); 
+
+    function openInfo(evt, tabName) 
+    {
+      var i, x, tablinks;
+      x = document.getElementsByClassName("reg");
+      for (i = 0; i < x.length; i++) {
+         x[i].style.display = "none";
+      }
+      tablinks = document.getElementsByClassName("tablink");
+      for (i = 0; i < x.length; i++) {
+          tablinks[i].className = tablinks[i].className.replace(" w3-pacolor", ""); 
+      }
+      document.getElementById(tabName).style.display = "block";
+      evt.currentTarget.className += " w3-pacolor";
+    }
+
+    document.getElementById("defaultOpen").click();
+
+    function rev1()
+    {
+        window.location.assign("specificpatientr1.php");
+    }
+    function rev2()
+    {
+        window.location.assign("specificpatientr2.php");
+    }
+    function rev3()
+    {
+        window.location.assign("specificpatientr3.php");
+    }
+    function rev4()
+    {
+        window.location.assign("specificpatientr4.php");
+    }
 </script>
-    
-    
+       
 <?php 
 
 //---------------------------------------------------------------------------------------------------------------------------------------------------
 //GET INFORMATION
 
-$sp = "SELECT a.id, a.fname, a.lname, a.phone, a.email, b.location, c.surgeonFirst, c.surgeonLast, d.first, d.last, a.active, ".
+$sp = "SELECT a.id, a.fname, a.lname, a.phone, b.location, c.surgeonFirst, c.surgeonLast, d.first, d.last, a.active, ".
              "e.cptDescriptor, e.asaCode, f.block as block1, a.vol1, a.addi1, a.method1, g.med as med1, h.block as block2, i.med as med2, ".
              "a.vol2, a.addi2, a.method2, a.monthnumber, a.daynumber, ".
              "a.painscore1, motorblock1, a.sensoryblock1, a.nsaids1, a.acetaminophen1, a.narcotics1, a.drainage1, a.comments1, ".
@@ -105,43 +118,50 @@ $_SESSION['currentptnum'] = $ptnum;
 
 //---------------------------------------------------------------------------------------------------------------------------------------------------
 //SET UP TABS
-
+ 
 echo'
-<html>
-<title>Block</title>
-<head>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <style>  
-    .row:after 
-    {
-        content: "";
-        display: table;
-        clear: both;
-    } 
-    </style>
-<link rel="stylesheet" href="styles/stylew3.css" type="text/css">
+<title>Patient Information</title>
+<link rel="stylesheet" href="styles/style2.css" type="text/css">
 </head>
-
-
 <body>
 
-<div class="row" style="background-color:#7db4dc;">
-  <center><img src="includes/ProvidenceSmall.png" alt="PAA" height='.($winwidth*0.2369*.5*.7).'; width='.($winwidth*.5*.7).';" /></center>
-  <div class="w3-padding w3-center"><h1>Patient Information</h1></div>
-</div>
+<div class="row" style="background-color:#7db4dc; width:95%; padding:10px; margin-right:auto; margin-left:auto;">';
 
-<div class="w3-sidebar w3-bar-block w3-light-grey w3-card" style="width:130px">
-  <h5 class="w3-bar-item"><b>Menu</b></h5>
-  <button class="w3-bar-item w3-button tablink" onclick="window.location.href=\'registration.php\'">Patient Registration</button>
-  <button class="w3-bar-item w3-button tablink" onclick="window.location.href=\'patientinfo.php\'">Active Patient List</button>
-  <button class="w3-bar-item w3-button tablink" onclick="window.location.href=\'comPtList.php\'">Complete Patient List</button>
-  <button class="w3-bar-item w3-button tablink" onclick="window.location.href=\'statistics.php\'">Statistics</button>
-  <button class="w3-bar-item w3-button tablink" onclick="window.location.href=\'logout.php\'">Logout</button>
-</div>
+if ($winwidth > 925)
+{
+  echo
+  '<center><img src="includes/ProvidenceSmall.png" alt="PAA" height='.($winwidth*0.2369*.5*.7).'; width='.($winwidth*.5*.7).';" /></center>'.
+  '<h1 style="text-align:center;">Patient Information</h1>';
+}
+else
+{
+  echo
+  '<center><img src="includes/ProvidenceSmall.png" alt="PAA" width=50%;" /></center>'.
+  '<h3 style="text-align:center;">Patient Information</h3>';
+}
 
-<div style="margin-left:130px"> 
-<br><br>
-<div id="PtList" class="w3-container reg">';
+echo'
+  
+</div>
+<br>';
+
+echo'
+<div class="topnav" style="width:95%; margin-right:auto; margin-left:auto">
+  <a href="registration.php">Patient Registration</a>';
+
+if ($_SESSION['access'] == 1)
+{
+    echo'
+    <a href="patientinfo.php">Active Patient List</a>
+    <a href="comPtList.php">Complete Patient List</a>
+    <a href="statistics.php">Statistics</a>';
+}
+    echo'
+    <a href="logout.php">Logout</a>
+</div>';
+
+echo'
+<br><br>'; 
 
 
 
@@ -177,14 +197,6 @@ echo'
         </td>
         <td style="width:60%; padding:10px;">'.
             $spb['phone'].'
-        </td>
-    </tr>
-    <tr>
-        <td style="width:40%; border:none; text-align:right; padding:10px;">
-            <b>Email Address:</b>
-        </td>
-        <td style="width:60%; padding:10px;">'
-            .$spb['email'].'
         </td>
     </tr>
     <tr>
@@ -459,12 +471,35 @@ echo'
         </tr>            
     </table>
     <br>
-    <center>';
+    <center>
+    <table style="width:60%">
+        <tr>
+            <td align="center">
+            <button class="btn" id="c2" onClick="window.location = \'registrationR.php\'" />REVISE PATIENT INFORMATION</button>
+            </td>
+        </tr>
+    </table><br><br>'
+    ;
 
 
 
 //---------------------------------------------------------------------------------------------------------------------------------------------------
 //CASES
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -2203,47 +2238,6 @@ else if ($spb['painscore1'] == -1 || $_SESSION['revise1'] == 1)
 
     </div>';
 }
-?>
-
-   
-<script>
-    
-function openInfo(evt, tabName) 
-{
-  var i, x, tablinks;
-  x = document.getElementsByClassName("reg");
-  for (i = 0; i < x.length; i++) {
-     x[i].style.display = "none";
-  }
-  tablinks = document.getElementsByClassName("tablink");
-  for (i = 0; i < x.length; i++) {
-      tablinks[i].className = tablinks[i].className.replace(" w3-pacolor", ""); 
-  }
-  document.getElementById(tabName).style.display = "block";
-  evt.currentTarget.className += " w3-pacolor";
-}
-
-document.getElementById("defaultOpen").click();
-
-function rev1()
-{
-    window.location = "specificpatientr1.php";
-}
-function rev2()
-{
-    window.location = "specificpatientr2.php";
-}
-function rev3()
-{
-    window.location = "specificpatientr3.php";
-}
-function rev4()
-{
-    window.location = "specificpatientr4.php";
-}
-</script>
-
-<?php
 echo'
 </body>
 </html>';

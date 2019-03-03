@@ -8,7 +8,6 @@
 //////////////////////////////////////////////////////////////////////////////////////////////////
 
 session_start();
-
 echo '<link rel="manifest" href="/manifest.json">';
 echo '<meta name="apple-mobile-web-app-capable" content="yes">';
 echo '<meta name="apple-mobile-web-app-status-bar-style" content="default">';
@@ -16,6 +15,7 @@ echo '<link rel="apple-touch-icon" href="fi192.png">';
 
 $datetime = new DateTime("now", new DateTimeZone('US/Eastern'));
 $datetime2 = new DateTime("now", new DateTimeZone('US/Eastern'));
+
 
 
 if (!isset($_SESSION['username']))
@@ -40,7 +40,9 @@ else
        echo '<body>';
        echo' <table id="dale" style="width:100%;"></table>';
        echo '</body>';
-       ?>
+?>
+
+
         <script type="text/javascript">
         var elmnt = document.getElementById("dale");
 
@@ -50,14 +52,21 @@ else
 
         var txt = Math.min(txt1, txt2, txt3);
 
-
-
         var loc = window.location.href;
         
-        window.location = loc + "?w=" + txt + "&h=" + window.screen.height;       
+        window.location = loc + "?w=" + txt + "&h=" + window.screen.height;  
+
+
+
+        function doOnOrientationChange()
+        {
+            window.location("resetwidth.php");
+        }
+        window.addEventListener('orientationchange', doOnOrientationChange);
         </script>
-        <?php 
-        die();
+        
+        
+<?php 
    }
    
    $winwidth = $_SESSION['w'];
@@ -68,8 +77,6 @@ else
        unset($_SESSION['lname']);
    if (isset($_SESSION['phone']))
        unset($_SESSION['phone']);
-   if (isset($_SESSION['email']))
-       unset($_SESSION['email']);
    if (isset($_SESSION['orloc']))
        unset($_SESSION['orloc']);
    if (isset($_SESSION['orlocID']))
@@ -112,26 +119,6 @@ else
 
 
 <script type="text/javascript">
-   
-    var resizeTimer; 
-    var cachedWidth = window.innerWidth;
-    
-    window.addEventListener("resize", doOnResize); 
-       
-    function doOnResize()
-    {
-        clearTimeout(resizeTimer);
-        var new_width = window.innerWidth;
-        if(new_width !== cachedWidth)
-        {
-            resizeTimer = setTimeout(function() 
-            {
-                var new_width = window.innerWidth;
-                var new_height = window.innerHeight;
-                window.location = "resetWidth3.php?w=" + new_width + "&h=" + new_height;            
-            }, 500);
-        }
-    }
     
     function movetoNext(current, nextFieldID) 
     { 
@@ -141,47 +128,53 @@ else
         }  
     }  
 </script>
-    
-    
-<?php   
+      
+<?php 
+ 
 echo'
-<html>
 <title>Registration</title>
-<head>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <style>  
-    .row:after 
-    {
-        content: "";
-        display: table;
-        clear: both;
-    } 
-    </style>
-<link rel="stylesheet" href="styles/stylew3.css" type="text/css">
+<link rel="stylesheet" href="styles/style2.css" type="text/css">
 </head>
-
-
 <body>
 
-<div class="row" style="background-color:#7db4dc;">
-  <center><img src="includes/ProvidenceSmall.png" alt="PAA" height='.($winwidth*0.2369*.5*.7).'; width='.($winwidth*.5*.7).';" /></center>
-  <div class="w3-padding w3-center"><h1>Block Patient Registration</h1></div>
+<div class="row" style="background-color:#7db4dc; width:95%; padding:10px; margin-right:auto; margin-left:auto;">';
+
+if ($winwidth > 925)
+{
+  echo
+  '<center><img src="includes/ProvidenceSmall.png" alt="PAA" height='.($winwidth*0.2369*.5*.7).'; width='.($winwidth*.5*.7).';" /></center>'.
+  '<h1 style="text-align:center;">Block Patient Registration</h1>';
+}
+else
+{
+  echo
+  '<center><img src="includes/ProvidenceSmall.png" alt="PAA" width=50%;" /></center>'.
+  '<h3 style="text-align:center;">Block Patient Registration</h3>';
+}
+
+echo'
+  
 </div>
+<br>';
 
-<div class="w3-sidebar w3-bar-block w3-light-grey w3-card" style="width:130px">
-  <h5 class="w3-bar-item"><b>Menu</b></h5>
-  <button class="w3-bar-item w3-button tablink" onclick="openInfo(event, \'PtReg\')" id="defaultOpen">Patient Registration</button>
-  <button class="w3-bar-item w3-button tablink" onclick="window.location.href=\'patientinfo.php\'">Active Patient List</button>
-  <button class="w3-bar-item w3-button tablink" onclick="window.location.href=\'comPtList.php\'">Complete Patient List</button>
-  <button class="w3-bar-item w3-button tablink" onclick="window.location.href=\'statistics.php\'">Statistics</button>
-  <button class="w3-bar-item w3-button tablink" onclick="window.location.href=\'logout.php\'">Logout</button>
-</div>
+echo'
+<div class="topnav" style="width:95%; margin-right:auto; margin-left:auto">
+  <a href="registration.php">Patient Registration</a>';
 
-<div style="margin-left:130px"> 
-<br><br>
+if ($_SESSION['access'] == 1)
+{
+    echo'
+    <a href="patientinfo.php">Active Patient List</a>
+    <a href="comPtList.php">Complete Patient List</a>
+    <a href="statistics.php">Statistics</a>';
+}
+    echo'
+    <a href="logout.php">Logout</a>
+</div>';
 
-<div id="PtReg" class="w3-container reg" style="display:none">
-<form action="action_page0.php" method="post">'; 
+echo'
+<br><br>'.
+'<form action="action_page0.php" method="post">'; 
     
     if ($_SESSION['w'] > 925)
     {
@@ -191,7 +184,7 @@ echo'
     else
     {
         echo'
-            <table style="border-style:solid; width:100%; margin-left:auto; margin-right:auto;">';
+            <table style="margin-left:auto; margin-right:auto; border-style:solid; width:95%;">';
     }
   
     echo'
@@ -211,21 +204,13 @@ echo'
             </td>
         </tr>
         <tr>
-            <td style="width:40%; border:none; text-align:right; padding:10px; font-size:24px"">
+            <td style="width:40%; border:none; text-align:right; padding:10px; font-size:24px;">
             <b>Phone Number:</b>
             </td>
             <td style="width:60%; padding:10px;">
                 <input type="text" name="phoneac" maxlength="3" size="3" onkeyup="movetoNext(this, \'phonepre\')" style="font-size:24px;">.
-                <input type="text" name="phonepre" id="phonepre" maxlength="3" size="3" onkeyup="movetoNext(this, \'phonepost\')"style="font-size:24px;">.
-                <input type="text" name="phonepost" id="phonepost" maxlength="4" size="4" style="font-size:24px;">
-            </td>
-        </tr>
-        <tr>
-            <td style="width:40%; border:none; text-align:right; padding:10px; font-size:24px">
-            <b>Email Address:</b>
-            </td>
-            <td style="width:60%; padding:10px;">
-                <input type="text" name="email" style="font-size:24px;">
+                <input type="text" name="phonepre" id="phonepre" maxlength="3" size="3" onkeyup="movetoNext(this, \'phonepost\')" style="font-size:24px;">.
+                <input type="text" name="phonepost" id="phonepost" maxlength="4" size="4" onkeyup="movetoNext(this, \'location\')" style="font-size:24px;">
             </td>
         </tr>
     </table><br><br>';
@@ -242,15 +227,15 @@ echo'
     else
     {
         echo'
-            <table style="border-style:solid; width:100%; margin-left:auto; margin-right:auto;">';
+            <table style="margin-left:auto; margin-right:auto; border-style:solid; width:95%;">';
     }
     echo'
                 <tr>
-                    <td style="width:40%; text-align:right; padding:10px">
+                    <td style="width:40%; text-align:right; padding:10px; font-size:24px;">
                     <b>OR Location:</b>
                     </td>
-                    <td style="width:60%; border:none; align:center; padding:10px">                    
-                    <select name="location">';
+                    <td style="width:60%; border:none; align:center; padding:10px; font-size:24px;">                    
+                    <select name="location" id="location">';
     
    while ($locE = mysqli_fetch_array($locA))
    {
@@ -262,15 +247,15 @@ echo'
                     </td>
                  </tr>
                  <tr>';
-   $anesQ = "SELECT * FROM users WHERE physician=1 ORDER BY last";
+   $anesQ = "SELECT * FROM users WHERE access=1 ORDER BY last";
    $anesA = mysqli_query($dbc, $anesQ);
    
    echo'
-            <td style="width:40%; border:none; text-align:right; padding:10px;">
+            <td style="width:40%; border:none; text-align:right; padding:10px; font-size:24px;">
                 <b>Block Anesthesiologist:</b>
             </td>
             
-            <td style="border:none; width:60%; padding:10px">
+            <td style="border:none; width:60%; padding:10px; font-size:24px;">
             <select name="anes">';
    while ($anesE = mysqli_fetch_array($anesA))
    {
@@ -280,7 +265,7 @@ echo'
             </select>
             </td>
         </tr>
-        </tr>';
+        <tr>';
    
    $surgeonQ = "SELECT * FROM surgeons";
    $surgeonA = mysqli_query($dbc, $surgeonQ);
@@ -290,12 +275,23 @@ echo'
 
    
    echo'
-            <td style="width:40%; border:none; text-align:right">
+            <td style="width:40%; border:none; text-align:right; padding:10px; font-size:24px;">
                 <b>Surgeon:</b>
             </td>
             
-            <td style="border:none; width:60%; padding:10px">
+            <td style="border:none; width:60%; padding:10px; font-size:24px;">
             <select name="surgeon">';
+   
+   
+   if (!isset($surgeonBF))
+   {
+       $surgeonBF="";
+   }
+   if (!isset($surgeonBL))
+   {
+       $surgeonBL="";
+   }
+   
    
    while ($surgeonE = mysqli_fetch_array($surgeonA))
    {
@@ -313,11 +309,11 @@ echo'
             </td>
          </tr>
          <tr>            
-            <td style="width:40%; border:none; text-align:right">
+            <td style="width:40%; border:none; text-align:right; padding:10px; font-size:24px;">
                 <b>CPT:</b>
             </td>
             
-            <td style="border:none; width:60%; padding:10px">
+            <td style="border:none; width:60%; padding:10px; font-size:24px;">
             <select name="cpt">';
    while ($cptE = mysqli_fetch_array($cptA))
    {
@@ -337,14 +333,22 @@ echo'
    $block1Q = "SELECT * FROM blocks ORDER BY block";
    $block1A = mysqli_query($dbc, $block1Q);
    
-   $drug1Q = "SELECT * FROM drug ORDER BY med";
+   $drug1Q = "SELECT * FROM drug ORDER BY id";
    $drug1A = mysqli_query($dbc, $drug1Q);
    
-   
+    if ($_SESSION['w'] > 925)
+    {
+        echo'
+            <table style="border-style:solid; width:70%; margin-left:auto; margin-right:auto;">';
+    }
+    else
+    {
+        echo'
+            <table style="margin-left:auto; margin-right:auto; border-style:solid; width:95%;">';
+    }   
    echo'
-       <table style="border-style:solid; width:60%; margin-right:auto; margin-left:auto;">
         <tr>
-            <td style="width:16%; border:none; text-align:right; padding:10px">
+            <td style="width:16%; border:none; text-align:right; padding:10px; font-size:20px;">
                 <b>Type of Block:</b>
             </td>
             
@@ -361,12 +365,13 @@ echo'
             </td>
             
 
-            <td style="width:16%; border:none; text-align:right; padding:10px;">
+            <td style="width:16%; border:none; text-align:right; padding:10px; font-size:20px;">
                 <b>Local:</b>
             </td>
             
             <td style="border:none; width:16%; padding:10px">
             <select name="drug1">';
+   
    while ($drug1E = mysqli_fetch_array($drug1A))
    {
            echo '<option value='.$drug1E['id'].'>'.$drug1E['med'].'</option>';
@@ -375,12 +380,12 @@ echo'
             </select>
             </td>
             
-            <td style="width:16%; border:none; text-align:right; padding:10px">
+            <td style="width:16%; border:none; text-align:right; padding:10px; font-size:20px;">
                 <b>Volume (ml):</b>
             </td>
             
-            <td style="width:16%; padding:10px">
-                <input type="text" name="volume" maxlength="3" size="3" value="0">
+            <td style="width:16%; padding:10px; font-size:20px;">
+                <input type="text" name="volume1" maxlength="3" size="3" value="0" style="font-size:20px;">
             </td>
        </tr>
        </table>';
@@ -388,25 +393,25 @@ echo'
     if ($_SESSION['w'] > 925)
     {
         echo'
-            <table style="border-style:solid; width:60%; margin-left:auto; margin-right:auto;">';
+            <table style="border-style:solid; width:70%; margin-left:auto; margin-right:auto;">';
     }
     else
     {
         echo'
-            <table style="border-style:solid; width:100%; margin-left:auto; margin-right:auto;">';
+            <table style="margin-left:auto; margin-right:auto; border-style:solid; width:95%;">';
     }
     echo'
                 <tr>
-                    <td style="border: none; width:8%;">
+                    <td style="border: none; width:8%; font-size:20px;">
                     <b>Additives:</b>
                     </td>
                     <td style="border: 1px solid black; width:23%; text-align:center;">
-                    <label for="epi200">Epinephrine 1:200,000 </label>
-                    <input type="checkbox" id="epi200" name="addi1[]" value="epi200" />                    
+                    <label for="epi400">Epinephrine 1:400,000 </label>
+                    <input type="checkbox" id="epi400" name="addi1[]" value="epi400" />                    
                     </td>
                     <td style="border: 1px solid black; width:23%; text-align:center">
-                    <label for="epi100">Epinephrine 1:100,000</label>
-                    <input type="checkbox" id="epi100" name="addi1[]" value="epi100" />
+                    <label for="epi200">Epinephrine 1:200,000</label>
+                    <input type="checkbox" id="epi200" name="addi1[]" value="epi200" />
                     </td>
                 </tr>
                 <tr>
@@ -434,17 +439,17 @@ echo'
     if ($_SESSION['w'] > 925)
     {
         echo'
-            <table style="border-style:solid; width:60%; margin-left:auto; margin-right:auto;">';
+            <table style="border-style:solid; width:70%; margin-left:auto; margin-right:auto;">';
     }
     else
     {
         echo'
-            <table style="border-style:solid; width:100%; margin-left:auto; margin-right:auto;">';
+            <table style="margin-left:auto; margin-right:auto; border-style:solid; width:95%;">';
     } 
     
     echo'
                 <tr>
-                    <td style="text-align:center; font-weight: bold;">
+                    <td style="text-align:center; font-weight: bold; font-size:20px;">
                     Method:
                     </td>
                     <td style="text-align:center">
@@ -465,24 +470,24 @@ echo'
 
     $block2A = mysqli_query($dbc, $block2Q);
 
-    $drug2Q = "SELECT * FROM drug ORDER BY med";
+    $drug2Q = "SELECT * FROM drug ORDER BY id";
     $drug2A = mysqli_query($dbc, $drug2Q);
    
    
     if ($_SESSION['w'] > 925)
     {
         echo'
-            <table style="border-style:solid; width:60%; margin-left:auto; margin-right:auto;">';
+            <table style="border-style:solid; width:70%; margin-left:auto; margin-right:auto;">';
     }
     else
     {
         echo'
-            <table style="border-style:solid; width:100%; margin-left:auto; margin-right:auto;">';
+            <table style="margin-left:auto; margin-right:auto; border-style:solid; width:95%;">';
     }
    
     echo'
             <tr>
-                <td style="width:16%; border:none; text-align:right; padding:10px">
+                <td style="width:16%; border:none; text-align:right; padding:10px; font-size:20px;">
                     <b>Type of Block:</b>
                 </td>
 
@@ -500,7 +505,7 @@ echo'
                 </td>
 
 
-                <td style="width:16%; border:none; text-align:right; padding:10px">
+                <td style="width:16%; border:none; text-align:right; padding:10px; font-size:20px;">
                     <b>Local:</b>
                 </td>
 
@@ -515,27 +520,37 @@ echo'
                 </select>
                 </td>
 
-                <td style="width:16%; border:none; text-align:right; padding:10px">
+                <td style="width:16%; border:none; text-align:right; padding:10px; font-size:20px;">
                     <b>Volume (ml):</b>
                 </td>
 
                 <td style="width:16%; padding:10px">
-                    <input type="text" name="volume2" maxlength="3" size="3" value="0">
+                    <input type="text" name="volume2" maxlength="3" size="3" value="0" style="font-size:20px;">
                 </td>
             </tr>
-        </table>
-        <table style="border-style:solid; width:60%; margin-right:auto; margin-left:auto;">
+        </table>';
+    if ($_SESSION['w'] > 925)
+    {
+        echo'
+            <table style="border-style:solid; width:70%; margin-left:auto; margin-right:auto;">';
+    }
+    else
+    {
+        echo'
+            <table style="margin-left:auto; margin-right:auto; border-style:solid; width:95%;">';
+    }
+    echo'
             <tr>
-                <td style="border:none; width:8%;">
+                <td style="border:none; width:8%;; font-size:20px;">
                 <b>Additives:</b>
                 </td>
                 <td style="border: 1px solid black; width:23%; text-align:center">
-                <label for="epi200">Epinephrine 1:200,000 </label>
-                <input type="checkbox" id="epi2002" name="addi2[]" value="epi200" />                    
+                <label for="epi400">Epinephrine 1:400,000 </label>
+                <input type="checkbox" id="epi4002" name="addi2[]" value="epi400" />                    
                 </td>
                 <td style="border: 1px solid black; width:23%; text-align:center">
-                <label for="epi100">Epinephrine 1:100,000</label>
-                <input type="checkbox" id="epi1002" name="addi2[]" value="epi100" />
+                <label for="epi200">Epinephrine 1:200,000</label>
+                <input type="checkbox" id="epi2002" name="addi2[]" value="epi200" />
                 </td>
             </tr>
             <tr>
@@ -563,17 +578,17 @@ echo'
     if ($_SESSION['w'] > 925)
     {
         echo'
-            <table style="border-style:solid; width:60%; margin-left:auto; margin-right:auto;">';
+            <table style="border-style:solid; width:70%; margin-left:auto; margin-right:auto;">';
     }
     else
     {
         echo'
-            <table style="border-style:solid; width:100%; margin-left:auto; margin-right:auto;">';
+            <table style="margin-left:auto; margin-right:auto; border-style:solid; width:95%;">';
     } 
     
     echo'
                 <tr>
-                    <td style="text-align:center; font-weight: bold;">
+                    <td style="text-align:center; font-weight: bold; font-size:20px;">
                     Method:
                     </td>
                     <td style="text-align:center">
@@ -590,8 +605,9 @@ echo'
         <br>
         <table style="width:35%; border-style:solid;">
             <tr>
-                <td style="width:33%; border:none; text-align:center"><b>Month</b></td><td style="width:33%; border:none; text-align:center">
-                <b>Day</b></td><td style="width:33%; border:none; text-align:center"><b>Hour</b></td>
+                <td style="width:33%; border:none; text-align:center; font-size:20px;"><b>Month</b></td>
+                <td style="width:33%; border:none; text-align:center; font-size:20px;"><b>Day</b></td>
+                <td style="width:33%; border:none; text-align:center; font-size:20px;"><b>Hour</b></td>
             </tr>
 
 
@@ -748,7 +764,7 @@ echo'
         var today = new Date();
         var dy = today.getDate();
 
-        for (var x=1; x<=dim; x++)
+        for (var x=0; x<=dim; x++)
         {
             if (x===dy)
             {
@@ -765,24 +781,16 @@ echo'
         }
         document.getElementById("day").innerHTML = st;
         st='';
-   }
-   
-
-    window.addEventListener("resize", resetH);
-    function resetH() 
-    {       
-        window.location.assign("resetWidth2.php");
-    }                
+   }                
     </script>
 
                 
 <?php
 
         echo'
-            </select>
-            </td>
-            <td style="width:33%; border:none; text-align:center">
-            <select name="hour">';
+            </td>'.
+            '<td style="width:33%; border:none; text-align:center">'.
+            '<select name="hour">';
 
 
         for ($x=0; $x<=23; $x++)
@@ -814,8 +822,7 @@ echo'
             </td>
         </tr>
     </table>
-    </form>
-    </div>';
+    </form>';
 ?>
 
    

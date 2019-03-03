@@ -10,6 +10,47 @@ $datetime = new DateTime("now", new DateTimeZone('US/Eastern'));
 $datetime2 = new DateTime("now", new DateTimeZone('US/Eastern'));
 
 
+
+
+if (isset($_GET["w"]) && !isset($_SESSION['w']))
+{
+  $_SESSION['w'] = $_GET["w"];
+}  
+else if (!isset($_SESSION['w']))
+{
+   echo '<body>';
+   echo' <table id="dale" style="width:100%;"></table>';
+   echo '</body>';
+?>
+
+
+    <script type="text/javascript">
+    var elmnt = document.getElementById("dale");
+
+    var txt1 = elmnt.clientWidth; 
+    var txt2 = window.innerWidth;
+    var txt3 = window.screen.width;
+
+    var txt = Math.min(txt1, txt2, txt3);
+
+    var loc = window.location.href;
+
+    window.location = loc + "?w=" + txt;  
+
+
+
+    function doOnOrientationChange()
+    {
+        window.location("resetwidth.php");
+    }
+    window.addEventListener('orientationchange', doOnOrientationChange);
+    </script>
+
+
+<?php
+}
+
+
 if (!isset($_SESSION['username']))
 {
     require_once ('includes/login_functions.inc.php');
@@ -58,57 +99,37 @@ else
     }      
 ?>
 <head>
-<title>Providence Anesthesiology</title>
+<title>Day 1 Entry</title>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="stylesheet" href="styles/style2.css" type="text/css">
 </head>
 <body>
 
-
-
 <script type="text/javascript">    
-
-var resizeTimer; 
-var cachedWidth = window.innerWidth;
-
-window.addEventListener("resize", doOnResize); 
-
-function doOnResize()
-{
-    clearTimeout(resizeTimer);
-    var new_width = window.innerWidth;
-    if(new_width !== cachedWidth)
+    function doOnOrientationChange()
     {
-        resizeTimer = setTimeout(function() 
-        {
-            var new_width = window.innerWidth;
-            var new_height = window.innerHeight;
-            window.location = "resetWidth3.php?w=" + new_width + "&h=" + new_height;            
-        }, 500);
+        window.location("resetwidth.php");
     }
-}
+    window.addEventListener('orientationchange', doOnOrientationChange);
 </script>
 
 
 <?php
 echo'
-<html>
-<title>Day 1 Entry</title>
-<body>
-
-<div class="row2" style="background-color:#7db4dc; width:'.$_SESSION['w'].'">
+<div class="row2" style="background-color:#7db4dc; width:95%; margin-left:auto; margin-right:auto;">
   <center><img src="includes/ProvidenceSmall.png" alt="PAA" height='.($_SESSION['w']*0.2369*.5*.7).'; width='.($_SESSION['w']*.5*.7).';" /></center>
 </div>';
 ?>
 
-<div class="topnav">
+<div class="topnav" style="width:95%; margin-right:auto; margin-left:auto">
   <a href="eos.php">Evening of Surgery</a>
   <a href="#">Postoperative Day #1</a>
   <a href="blockInformation.php">Block Information</a>
   <a href="faqs.php">FAQs</a>
   <a href="logout.php">Logout</a>
 </div>
+
     <br><br>
     <center><h1>POSTOPERATIVE DAY #1</h1></center>
     <br><br>

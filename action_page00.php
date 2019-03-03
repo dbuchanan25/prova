@@ -3,7 +3,7 @@
 //VERSION 01_03                                                                                 //
 //LAST REVISED 20190222                                                                         //
 //Page confirms appropriate entry of patient information prior to entry into the database.      //
-//It forwards to page "action_page1.php"                                                        //
+//It forwards to page "action_page11.php"                                                        //
 //////////////////////////////////////////////////////////////////////////////////////////////////
 session_start();
 
@@ -20,7 +20,7 @@ else
 ?>
 
 
-<script type="text/javascript">          
+<script type="text/javascript">  
     function doOnOrientationChange()
     {
         window.location("resetwidth.php");
@@ -129,15 +129,16 @@ else
                 <?php
             }
             
-            if (check_num(trim(filter_input(INPUT_POST, "volume1"))) && check_num(trim(filter_input(INPUT_POST, "volume2"))) && $_POST['volume1'] > 0)
+            if (check_num(trim(filter_input(INPUT_POST, "volume"))) && check_num(trim(filter_input(INPUT_POST, "volume2"))) && $_POST['volume1'] > 0)
             {
-                $_SESSION['volume1'] = trim(filter_input(INPUT_POST, "volume1"));
+                $_SESSION['volume1'] = trim(filter_input(INPUT_POST, "volume"));
                 $_SESSION['volume2'] = trim(filter_input(INPUT_POST, "volume2"));
                 
                 
                 $_SESSION['monthnumber'] = $_POST['month'];
                 $_SESSION['daynumber'] = $_POST['day'];
                 $_SESSION['hournumber'] = $_POST['hour'];
+                
 
                 echo'
                 <title>Block</title>
@@ -588,6 +589,6 @@ function check_num($str)
     }
     function ce()
     {
-        window.location="action_page1.php";
+        window.location="action_page11.php";
     }
 </script>

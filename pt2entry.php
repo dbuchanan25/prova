@@ -58,51 +58,30 @@ else
     }      
 ?>
 <head>
-<title>Providence Anesthesiology</title>
+<title>Day 2 Entry</title>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="stylesheet" href="styles/style2.css" type="text/css">
 </head>
 <body>
 
-
-
 <script type="text/javascript">    
-
-var resizeTimer; 
-var cachedWidth = window.innerWidth;
-
-window.addEventListener("resize", doOnResize); 
-
-function doOnResize()
-{
-    clearTimeout(resizeTimer);
-    var new_width = window.innerWidth;
-    if(new_width !== cachedWidth)
+    function doOnOrientationChange()
     {
-        resizeTimer = setTimeout(function() 
-        {
-            var new_width = window.innerWidth;
-            var new_height = window.innerHeight;
-            window.location = "resetWidth3.php?w=" + new_width + "&h=" + new_height;            
-        }, 500);
+        window.location("resetwidth.php");
     }
-}
+    window.addEventListener('orientationchange', doOnOrientationChange);
 </script>
-
 
 <?php
 echo'
-<html>
-<title>FAQs</title>
-<body>
 
-<div class="row2" style="background-color:#7db4dc; width:'.$_SESSION['w'].'">
+<div class="row2" style="background-color:#7db4dc; width:95%; margin-right:auto; margin-left:auto;">
   <center><img src="includes/ProvidenceSmall.png" alt="PAA" height='.($_SESSION['w']*0.2369*.5*.7).'; width='.($_SESSION['w']*.5*.7).';" /></center>
 </div>';
 ?>
 
-<div class="topnav">
+<div class="topnav" style="width:95%; margin-right:auto; margin-left:auto;">
   <a href="eos.php">Evening of Surgery</a>
   <a href="ptblock1.php">Postoperative Day #1</a>
   <a href="pt2entry.php">Postoperative Day #2</a>

@@ -7,7 +7,6 @@
 //////////////////////////////////////////////////////////////////////////////////////////////////
 session_start();
 
-
 if (!isset($_SESSION['username']))
 {
    require_once ('includes/login_functions.inc.php');
@@ -17,41 +16,11 @@ if (!isset($_SESSION['username']))
 }
 else
 {
-?>
-
-<script type="text/javascript">
-   
-    var resizeTimer; 
-    var cachedWidth = window.innerWidth;
-    
-    window.addEventListener("resize", doOnResize); 
-       
-    function doOnResize()
-    {
-        clearTimeout(resizeTimer);
-        var new_width = window.innerWidth;
-        if(new_width !== cachedWidth)
-        {
-            resizeTimer = setTimeout(function() 
-            {
-                var new_width = window.innerWidth;
-                var new_height = window.innerHeight;
-                window.location = "resetWidth3.php?w=" + new_width + "&h=" + new_height;            
-            }, 500);
-        }
-    }
-</script>
-
-<?php
     require_once ($_SESSION['loginstring']);
     $yearnumber = date("Y");
-    
-    echo("Pre-Salt<br>");
 
     $SALT = "TheKeyFromHell";
     $hashname = md5( $SALT . md5( $_SESSION['lname'] . $SALT ) );
-
-    echo("Post-Salt");
 
     if (isset($_SESSION['addi1']) && !isset($_SESSION['addi2']))
     {
@@ -61,13 +30,14 @@ else
             $addi1.=($a.' ');
         }
 
-        $a = "INSERT INTO patients (fname, lname, phone, email, orlocID, anesthesiologistID, surgeonID, cptID, block1ID, ".
+        $a = "INSERT INTO patients (fname, lname, phone,  orlocID, anesthesiologistID, surgeonID, cptID, block1ID, ".
                 "drug1ID, vol1, addi1, method1, block2ID, drug2ID, vol2, method2, monthnumber, daynumber, hournumber, yearnumber, active) VALUES ('".
-                $_SESSION['fname']."', '".$_SESSION['lname']."', '".$_SESSION['phone']."', '".$_SESSION['email']."', ".$_SESSION['orlocID'].
+                $_SESSION['fname']."', '".$_SESSION['lname']."', '".$_SESSION['phone']."', ".$_SESSION['orlocID'].
                 ", ".$_SESSION['anesthesiologistID'].", ".$_SESSION['surgeonID'].", ".$_SESSION['cptID'].", ".$_SESSION['block1ID'].
                 ", ".$_SESSION['drug1ID'].", ".$_SESSION['volume1'].", '".$addi1."', '".$_SESSION['method1']."', ".$_SESSION['block2ID'].
                 ", ".$_SESSION['drug2ID'].", ".$_SESSION['volume2'].", '".$_SESSION['method2']."', ".$_SESSION['monthnumber'].", ".$_SESSION['daynumber'].
                 ", ".$_SESSION['hournumber'].", ".$yearnumber.", 1)";
+
         if (!mysqli_query($dbc,$a))
         {
           echo("Error description: " . mysqli_error($dbc));
@@ -85,13 +55,14 @@ else
         {
             $addi2.=($b.' ');
         }
-        $a = "INSERT INTO patients (fname, lname, phone, email, orlocID, anesthesiologistID, surgeonID, cptID, block1ID, ".
+        $a = "INSERT INTO patients (fname, lname, phone, orlocID, anesthesiologistID, surgeonID, cptID, block1ID, ".
                 "drug1ID, vol1, block2ID, drug2ID, vol2, addi1, addi2, method1, method2, monthnumber, daynumber, hournumber, yearnumber, active) VALUES ('".
-                $_SESSION['fname']."', '".$_SESSION['lname']."', '".$_SESSION['phone']."', '".$_SESSION['email']."', ".$_SESSION['orlocID'].
+                $_SESSION['fname']."', '".$_SESSION['lname']."', '".$_SESSION['phone']."', ', ".$_SESSION['orlocID'].
                 ", ".$_SESSION['anesthesiologistID'].", ".$_SESSION['surgeonID'].", ".$_SESSION['cptID'].", ".$_SESSION['block1ID'].
                 ", ".$_SESSION['drug1ID'].", ".$_SESSION['volume1'].", ".$_SESSION['block2ID'].", ".$_SESSION['drug2ID'].
                 ", ".$_SESSION['volume2'].", '".$addi1."', '".$addi2."', '".$_SESSION['method1']."', '".$_SESSION['method2']."', ".$_SESSION['monthnumber'].
                 ", ".$_SESSION['daynumber'].", ".$_SESSION['hournumber'].", ".$yearnumber.", 1)";
+
         if (!mysqli_query($dbc,$a))
         {
           echo("Error description: " . mysqli_error($dbc));
@@ -99,13 +70,14 @@ else
     }
     else
     {
-        $a = "INSERT INTO patients (fname, lname, phone, email, orlocID, anesthesiologistID, surgeonID, cptID, block1ID, ".
+        $a = "INSERT INTO patients (fname, lname, phone, orlocID, anesthesiologistID, surgeonID, cptID, block1ID, ".
                 "drug1ID, vol1, method1, block2ID, drug2ID, vol2, method2, monthnumber, daynumber, hournumber, yearnumber, active) VALUES ('".
-                $_SESSION['fname']."', '".$_SESSION['lname']."', '".$_SESSION['phone']."', '".$_SESSION['email']."', ".$_SESSION['orlocID'].
+                $_SESSION['fname']."', '".$_SESSION['lname']."', '".$_SESSION['phone']."',  ".$_SESSION['orlocID'].
                 ", ".$_SESSION['anesthesiologistID'].", ".$_SESSION['surgeonID'].", ".$_SESSION['cptID'].", ".$_SESSION['block1ID'].
                 ", ".$_SESSION['drug1ID'].", ".$_SESSION['volume1'].", '".$_SESSION['method2']."', ".$_SESSION['block2ID'].", ".$_SESSION['drug2ID'].
-                ", ".$_SESSION['volume2'].", '".$_SESSION[method2]."', ".$_SESSION['monthnumber'].", ".$_SESSION['daynumber'].", ".$_SESSION['hournumber'].
+                ", ".$_SESSION['volume2'].", '".$_SESSION['method2']."', ".$_SESSION['monthnumber'].", ".$_SESSION['daynumber'].", ".$_SESSION['hournumber'].
                 ", ".$yearnumber.", 1)";
+
         if (!mysqli_query($dbc,$a))
         {
           echo("Error description: " . mysqli_error($dbc));
@@ -126,6 +98,47 @@ else
          "VALUES ('".$un."', '".$pa."', ".$idp.", '".$hashname."')";
     $d = mysqli_query($dbc, $c);
     $_SESSION['ptid'] = $idp;
+    
+    
+    $c1 = "";
+    for ($x=0; $x<10; $x++)
+    {
+        $s1 = base_convert(rand ( 0 , 31 ),10,32);
+        $c1.=$s1;
+    }
+    
+    $c2 = "";
+    for ($x=0; $x<10; $x++)
+    {
+        $s1 = base_convert(rand ( 0 , 31 ),10,32);
+        $c2.=$s1;
+    }
+    
+    $c3 = "";
+    for ($x=0; $x<10; $x++)
+    {
+        $s1 = base_convert(rand ( 0 , 31 ),10,32);
+        $c3.=$s1;
+    }
+    
+    $c4 = "";
+    for ($x=0; $x<10; $x++)
+    {
+        $s1 = base_convert(rand ( 0 , 31 ),10,32);
+        $c4.=$s1;
+    }
+    
+    $c5 = "";
+    for ($x=0; $x<10; $x++)
+    {
+        $s1 = base_convert(rand ( 0 , 31 ),10,32);
+        $c5.=$s1;
+    }
+    
+    $cc = "INSERT INTO codes (patientsid, day1code, day2code, day3code, day4code, ptsatcode) ".
+         "VALUES (".$_SESSION['ptid'].", '".$c1."', '".$c2."', '".$c3."', '".$c4."', '".$c5."')";
+
+    $dd = mysqli_query($dbc, $cc);
     
     echo'
     <script>

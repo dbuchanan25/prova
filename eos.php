@@ -13,6 +13,17 @@ if (!isset($_SESSION['username']))
 }
 else
 {
+    ?>
+
+    <script type="text/javascript">    
+    function doOnOrientationChange()
+    {
+        window.location("resetwidth.php");
+    }
+    window.addEventListener('orientationchange', doOnOrientationChange);
+    </script>
+    
+    <?php
     $_SESSION['ptblock1'] = false;  $_SESSION['ptblock2'] = false;
     $_SESSION['ptblock3'] = false;  $_SESSION['ptblock4'] = false;
     
@@ -48,53 +59,20 @@ else
         }
     }
 ?>
-<head>
-<title>Providence Anesthesiology</title>
+<title>Evening of Surgery</title>
 <meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="stylesheet" href="styles/style2.css" type="text/css">
 </head>
 <body>
 
-<script type="text/javascript">    
-function doOnOrientationChange()
-{
-    window.location("resetwidth.php");
-}
-window.addEventListener('orientationchange', doOnOrientationChange);
-
-var resizeTimer; 
-var cachedWidth = window.innerWidth;
-
-window.addEventListener("resize", doOnResize); 
-
-function doOnResize()
-{
-    clearTimeout(resizeTimer);
-    var new_width = window.innerWidth;
-    if(new_width !== cachedWidth)
-    {
-        resizeTimer = setTimeout(function() 
-        {
-            var new_width = window.innerWidth;
-            var new_height = window.innerHeight;
-            window.location = "resetWidth3.php?w=" + new_width + "&h=" + new_height;            
-        }, 500);
-    }
-}
-</script>
-
 <?php
 echo'
-<html>
-<title>Evening of Surgery</title>
-<body>
-
-<div class="row2" style="background-color:#7db4dc; width:'.$_SESSION['w'].'">
-  <center><img src="includes/ProvidenceSmall.png" alt="PAA" height='.($_SESSION['w']*0.2369*.5*.7).'; width='.($_SESSION['w']*.5*.7).';" /></center>
+<div class="row2" style="background-color:#7db4dc; width:95%;  margin-left:auto;  margin-right:auto;">
+  <center><img src="includes/ProvidenceSmall.png" alt="PAA" width: 70%;  margin-left:auto;  margin-right:auto;" /></center>  
 </div>';
+
 echo'
-<div class="topnav" style="width:'.$_SESSION['w'].'">
+<div class="topnav" style="width:95%; margin-left:auto; margin-right:auto;">
   <a href="eos.php">Evening of Surgery</a>'; 
 if ($_SESSION['ptblock1'])
 {

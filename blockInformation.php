@@ -14,28 +14,16 @@ if (!isset($_SESSION['username']))
 else
 {
     ?>
-    <script type="text/javascript">
-   
-    var resizeTimer; 
-    var cachedWidth = window.innerWidth;
-    
-    window.addEventListener("resize", doOnResize); 
-       
-    function doOnResize()
+
+    <script type="text/javascript">    
+    function doOnOrientationChange()
     {
-        clearTimeout(resizeTimer);
-        var new_width = window.innerWidth;
-        if(new_width !== cachedWidth)
-        {
-            resizeTimer = setTimeout(function() 
-            {
-                var new_width = window.innerWidth;
-                var new_height = window.innerHeight;
-                window.location = "resetWidth3.php?w=" + new_width + "&h=" + new_height;            
-            }, 500);
-        }
-    } 
-</script>
+        window.location("resetwidth.php");
+    }
+    window.addEventListener('orientationchange', doOnOrientationChange);
+    </script>
+    
+    
     <?php
     $_SESSION['ptblock1'] = false;  $_SESSION['ptblock2'] = false;
     $_SESSION['ptblock3'] = false;  $_SESSION['ptblock4'] = false;
@@ -44,21 +32,21 @@ else
     require_once ($_SESSION['loginstring']);
 
     $phcomplete = "";
-    $pp = "SELECT phone FROM patients AS a INNER JOIN patientusers AS b on a.id=b.patientsid WHERE b.pass = '".$_SESSION["pass"]."'";
-    $rr = mysqli_query($dbc, $pp);
-    if ($rr)
+    if (!isset($_SESSION['ptphone']))
     {
-        $ss = mysqli_fetch_array($rr);
-        $phcomplete = $ss['phone'];
-        $_SESSION['ptphone']=$phcomplete;
+        $pp = "SELECT phone FROM patients AS a INNER JOIN patientusers AS b on a.id=b.patientsid WHERE a.id = '".$_SESSION["currentptnum"]."'";
+        $rr = mysqli_query($dbc, $pp);
+        if ($rr)
+        {
+            $ss = mysqli_fetch_array($rr);
+            $phcomplete = $ss['phone'];
+            $_SESSION['ptphone']=$phcomplete;
+        }
     }
-
-    //$ph = $_SESSION['ptphone'];
-    //$phcomplete = "(".substr($ph,0,3).") ".substr($ph,3,3)."-".substr($ph,6);
     
     $q = "SELECT painscore1, painscore2, painscore3, painscore4 ".
          "FROM patients ".
-         "WHERE phone LIKE '".$phcomplete."' ".
+         "WHERE phone LIKE '".$_SESSION['ptphone']."' ".
          "AND active = 1";
     $r = mysqli_query($dbc, $q);
     
@@ -81,71 +69,23 @@ else
         {
             $_SESSION['ptblock4'] = true;
         }
-    }
-    /*
-    if ($u !== false)
-    {
-        $v = mysqli_fetch_array($u);
-        if ($v[0] > -1)
-        {
-            $_SESSION['ptblock2'] = true;
-        }
     } 
-     * 
-     */  
 ?>
-
-
-
-
-<title>Providence Anesthesiology</title>
+<head>
+<title>Block Information</title>
 <meta charset="utf-8">
 <link rel="stylesheet" href="styles/style2.css" type="text/css">
 </head>
 <body>
-
-<script type="text/javascript">    
-function doOnOrientationChange()
-{
-    window.location("resetwidth.php");
-}
-window.addEventListener('orientationchange', doOnOrientationChange);
-
-var resizeTimer; 
-var cachedWidth = window.innerWidth;
-
-window.addEventListener("resize", doOnResize); 
-
-function doOnResize()
-{
-    clearTimeout(resizeTimer);
-    var new_width = window.innerWidth;
-    if(new_width !== cachedWidth)
-    {
-        resizeTimer = setTimeout(function() 
-        {
-            var new_width = window.innerWidth;
-            var new_height = window.innerHeight;
-            window.location = "resetWidth3.php?w=" + new_width + "&h=" + new_height;            
-        }, 500);
-    }
-}
-</script>
-
-
-
+    
 <?php
 echo'
-<html>
-<title>Block Information</title>
-<body>
-
-<div class="row2" style="background-color:#7db4dc; width:'.$_SESSION['w'].'">
-  <center><img src="includes/ProvidenceSmall.png" alt="PAA" height='.($_SESSION['w']*0.2369*.5*.7).'; width='.($_SESSION['w']*.5*.7).';" /></center>
+<div class="row2" style="background-color:#7db4dc; width:95%;  margin-left:auto;  margin-right:auto;">
+  <center><img src="includes/ProvidenceSmall.png" alt="PAA" width: 70%;  margin-left: auto;  margin-right: auto;" /></center>  
 </div>';
 
 echo'
-<div class="topnav" style="width:'.$_SESSION['w'].'">
+<div class="topnav" style="width:95%; margin-left:auto; margin-right:auto;">
   <a href="eos.php">Evening of Surgery</a>';  
 if ($_SESSION['ptblock1'])
 {
